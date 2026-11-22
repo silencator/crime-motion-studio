@@ -63,11 +63,13 @@ I will attach the reference files listed below in this folder / in chat.
 - Strong hook in the first 1–2 seconds; a big moment on the twist (punch-in, red accent, hit sound); a stamped **"CASE CLOSED"** ending.
 - A small persistent channel element in a corner (like the clock in the reference), e.g. a case number "CASE 001" in red.
 
-## 7. Captions
+## 7. Captions (cinematic subtitle style, decided with Arian)
 
-- Synced word by word to the voice-over (transcribe the audio for word timestamps, e.g. with faster-whisper).
-- 1–3 words on screen at a time, bold uppercase white sans font with a dark outline or shadow, the key word highlighted (yellow, or red for danger/twist words).
-- Placed in the lower-middle, inside the Shorts/TikTok safe area (avoid the right-side buttons and bottom UI).
+- **Main captions = film-subtitle style:** yellow (#F2D23C-ish), bold clean sans, sentence case (not all caps), soft dark shadow, no box. Short phrases of about 3–7 words, one line (two max), each shown in sync with the voice and cut on the phrase. Size large enough for a phone (about 52–58 px at 1080 wide).
+- Placed in the lower-middle safe area (about 70–75 % down), clear of the right-side buttons and bottom UI, never over IF's face.
+- Spoken quotes (characters talking) use a leading dash, like film subtitles: "- He was stabbed in the back."
+- **Accent titles = motion-graphic style (sparingly, 3–5 per video):** big elegant italic serif in yellow, animating in fluidly (drift, scale, blur-in, letter stagger, light glow). Used only for key moments: the hook, the twist word, the final line. Captions hide while an accent title is on screen.
+- Words timed from the audio (word timestamps), corrected against the script.
 
 ## 8. Sound
 
