@@ -135,3 +135,12 @@ Shot plan idea (adapt it to the real audio timing):
 8. **Realisation:** IF stops, his eyes slide to the assistant, quick inserts (the covered sheet, no knife visible).
 9. **Reveal:** "Because he was the one who put it there." The assistant in red light, his shadow on the wall.
 10. **Ending:** IF at the desk or walking away into the snow, then a red **"CASE CLOSED"** stamp slams down.
+
+---
+
+## 13. Decisions log
+
+- **Stack:** Remotion (React/SVG, code-built animation), same approach as `finance-motion-studio` and `football-motion-studio`. Reuse their helper scripts (`transcribe.py`, `make-sfx.py`, `render.mjs`) where useful.
+- **Other characters:** Arian lets Claude design all side characters (suspects, victims, police, witnesses) freely, based on the audio and script. They only need to fit the video and the shared style. No approval needed.
+- **No video prompt needed:** this file is the standing brief. Each video needs only the voice-over audio and the script (scene notes optional). The Seedance prompt in the PDF is for an AI video generator and is used only as a style reference.
+- **References** are in `references/`. The 2:40 AM reference video is not added yet.
