@@ -185,3 +185,12 @@ ffmpeg -i out/caseNNN_raw.mp4 -c copy -movflags +faststart out/CASE_NNN_final.mp
 Setup in a fresh container: `npm install`, `pip install numpy scipy soundfile sherpa-onnx pillow`, download the ASR model
 `https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-zipformer-en-2023-06-26.tar.bz2` into `models/`.
 On Arian's PC with the RTX 2070, re-encode with NVENC if wanted: `-c:v h264_nvenc -b:v 22M -maxrate 25M -bufsize 44M`.
+
+---
+
+## 15. Rules learned from CASE 001 (apply to every video)
+
+- **Never open on black.** Frame 1 is already a strong, lit image (a character, motion, light), and the voice starts on frame 1. No silent or black pre-roll; the first second decides retention.
+- **Keep the voice clean, especially the first words.** No hissy or noisy effects under the voice (e.g. the lighter spark/flame burst sat on the first words of CASE 001). Opening effects are quiet and low (a soft click, a low rumble), never broadband hiss. Breathing and the other effects as in CASE 001 are approved.
+- **IF's signature car:** a black classic late-60s fastback (Mustang-style shape, no Ford logos/badges). It's his iconic car only. Use it whenever the story needs him driving or arriving (a good hook shot). Build it once into `src/characters/` the first time it's needed and reuse it.
+- CASE 001 was approved by Arian as-is (rendered video in `videos/`).
