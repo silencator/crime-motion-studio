@@ -146,3 +146,42 @@ Shot plan idea (adapt it to the real audio timing):
 - **Other characters:** Arian lets Claude design all side characters (suspects, victims, police, witnesses) freely, based on the audio and script. They only need to fit the video and the shared style. No approval needed.
 - **No video prompt needed:** this file is the standing brief. Each video needs only the voice-over audio and the script (scene notes optional). The Seedance prompt in the PDF is for an AI video generator and is used only as a style reference.
 - **References** are in `references/`. The 2:40 AM reference video is not added yet.
+
+---
+
+## 14. Studio library (built for CASE 001, reuse for every case)
+
+```
+src/kit/time.ts        60 fps clock, sec(), stepF() (stepped "on 4s" cel motion), easing, hash/noise
+src/kit/camera.tsx     <Stage cam={{x,y,zoom,rot,shake}}> + <Layer depth blur> = 2.5D parallax camera
+src/kit/fx.tsx         <Defs/> (hatching, tweed, stubble, chain-link, parquet, glows), <Ink> (outline + fill + hatch),
+                       Snow / SnowOverlay, Smoke (chimneys), CigSmoke, Dust, FilmFinish (grain+paper+vignette+flicker),
+                       Grade (colour grade), Flash, policePhase (red/blue light bar)
+src/kit/captions.tsx   Film subtitles (yellow, Inter Bold, sentence case) + AccentTitle (Playfair italic, letter blur-in),
+                       CaseTag ("● CASE 00X", top-left) + CaseClosed stamp
+src/kit/fonts.ts       Inter, Playfair Display Italic, Special Elite (typewriter), Anton (stamp); all OFL, in public/fonts
+src/characters/        IFBust (close-up rig: mouth, blink, look, brow, tilt, rim, flip, cig)
+                       IFBody (full-body side rig: walk cycle FK, coat follows legs, wind, cig) + ProfileHead
+                       Suspects (bust rig: wife / driver / assistant; mouth, blink, look, fear, sweat)
+src/locations/         soviet.tsx (RedSky, Block, Pylon, Cables, Factory, Lamp, Fence, BareTree, PoliceCar, Mansion, SnowGround)
+                       StreetScene.tsx (5-depth snowy khrushchyovka street), interiors.tsx (Corridor, BodyRoomTop,
+                       ReportCard, RevealWall, Tape, Sconce)
+src/cases/case001/     timeline.ts (shot times, subtitles, accent titles), shots.tsx (one component per shot), Case001.tsx (edit + sound mix)
+public/sfx/            synthesised sound kit (scripts/make-sfx.py): wind/drone/hum/room beds, siren, lighter, inhale/exhale,
+                       steps (snow/wood), door creak, paper, whooshes, hit-deep, riser, tick/tock, heartbeat, stamp, sting, flash
+public/tex/            grain frames + paper texture (scripts/make-textures.py)
+public/img/            painted panels cropped from the reference sheets (if_lighter.jpg, if_desk.jpg)
+```
+
+### Per-video commands
+```
+cp <voiceover> public/audio/caseNNN.mp3
+node scripts/analyze-audio.mjs public/audio/caseNNN.mp3 --noise -38 --min-silence 0.25   # phrase segments + loudness envelope (lip flap)
+python3 scripts/transcribe.py public/audio/caseNNN.mp3                                   # word times (sherpa-onnx; model in models/, git-ignored)
+node scripts/stills.mjs CaseNNN 1,5,9,...                                                # preview frames + contact sheet in out/
+npx remotion render src/index.ts CaseNNN out/caseNNN_raw.mp4 --video-bitrate=22M --audio-bitrate=320k --x264-preset=slow
+ffmpeg -i out/caseNNN_raw.mp4 -c copy -movflags +faststart out/CASE_NNN_final.mp4
+```
+Setup in a fresh container: `npm install`, `pip install numpy scipy soundfile sherpa-onnx pillow`, download the ASR model
+`https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-zipformer-en-2023-06-26.tar.bz2` into `models/`.
+On Arian's PC with the RTX 2070, re-encode with NVENC if wanted: `-c:v h264_nvenc -b:v 22M -maxrate 25M -bufsize 44M`.

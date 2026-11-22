@@ -1,0 +1,28 @@
+{
+  "name": "crime-motion-studio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CRIME IF: animated 2D detective Shorts, built in code with Remotion",
+  "type": "module",
+  "scripts": {
+    "studio": "remotion studio",
+    "typecheck": "tsc --noEmit",
+    "analyze": "node scripts/analyze-audio.mjs",
+    "transcribe": "python3 scripts/transcribe.py",
+    "sfx": "python3 scripts/make-sfx.py",
+    "render": "node scripts/render.mjs"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.545",
+    "@remotion/cli": "4.0.545",
+    "@remotion/renderer": "4.0.545",
+    "@remotion/media": "4.0.545",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "remotion": "4.0.545"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "typescript": "5.9.3"
+  }
+}

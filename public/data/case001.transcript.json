@@ -1,0 +1,524 @@
+[
+ {
+  "start": 0,
+  "end": 2.353,
+  "text": "A MILLIONAIRE WAS FOUND DEAD IN HIS MANSION",
+  "words": [
+   [
+    "A",
+    0.0
+   ],
+   [
+    "MILLIONAIRE",
+    0.16
+   ],
+   [
+    "WAS",
+    0.8
+   ],
+   [
+    "FOUND",
+    1.0
+   ],
+   [
+    "DEAD",
+    1.28
+   ],
+   [
+    "IN",
+    1.64
+   ],
+   [
+    "HIS",
+    1.76
+   ],
+   [
+    "MANSION",
+    1.96
+   ]
+  ]
+ },
+ {
+  "start": 3.083,
+  "end": 7.48,
+  "text": "HIS WIFE HIS DRIVER AND HIS ASSISTANT WERE QUESTIONED OUTSIDE THE ROOM",
+  "words": [
+   [
+    "HIS",
+    2.98
+   ],
+   [
+    "WIFE",
+    3.26
+   ],
+   [
+    "HIS",
+    3.74
+   ],
+   [
+    "DRIVER",
+    4.02
+   ],
+   [
+    "AND",
+    4.58
+   ],
+   [
+    "HIS",
+    4.86
+   ],
+   [
+    "ASSISTANT",
+    5.06
+   ],
+   [
+    "WERE",
+    5.82
+   ],
+   [
+    "QUESTIONED",
+    6.02
+   ],
+   [
+    "OUTSIDE",
+    6.66
+   ],
+   [
+    "THE",
+    7.06
+   ],
+   [
+    "ROOM",
+    7.26
+   ]
+  ]
+ },
+ {
+  "start": 8.305,
+  "end": 9.513,
+  "text": "THE BODY WAS STILL COVERED",
+  "words": [
+   [
+    "THE",
+    8.21
+   ],
+   [
+    "BODY",
+    8.32
+   ],
+   [
+    "WAS",
+    8.68
+   ],
+   [
+    "STILL",
+    8.84
+   ],
+   [
+    "COVERED",
+    9.12
+   ]
+  ]
+ },
+ {
+  "start": 9.913,
+  "end": 12.048,
+  "text": "AND POLICE HADN'T REVEALED HOW HE DIED",
+  "words": [
+   [
+    "AND",
+    9.81
+   ],
+   [
+    "POLICE",
+    9.93
+   ],
+   [
+    "HADN'T",
+    10.37
+   ],
+   [
+    "REVEALED",
+    10.73
+   ],
+   [
+    "HOW",
+    11.25
+   ],
+   [
+    "HE",
+    11.49
+   ],
+   [
+    "DIED",
+    11.69
+   ]
+  ]
+ },
+ {
+  "start": 12.642,
+  "end": 13.565,
+  "text": "DETECTIVE ASKED",
+  "words": [
+   [
+    "DETECTIVE",
+    12.54
+   ],
+   [
+    "ASKED",
+    13.26
+   ]
+  ]
+ },
+ {
+  "start": 14.079,
+  "end": 15.499,
+  "text": "DOES ANY ONE KNOW WHAT HAPPENED",
+  "words": [
+   [
+    "DOES",
+    13.98
+   ],
+   [
+    "ANY",
+    14.18
+   ],
+   [
+    "ONE",
+    14.38
+   ],
+   [
+    "KNOW",
+    14.62
+   ],
+   [
+    "WHAT",
+    14.86
+   ],
+   [
+    "HAPPENED",
+    15.1
+   ]
+  ]
+ },
+ {
+  "start": 16.224,
+  "end": 17.104,
+  "text": "NOBODY ANSWERED",
+  "words": [
+   [
+    "NOBODY",
+    16.12
+   ],
+   [
+    "ANSWERED",
+    16.68
+   ]
+  ]
+ },
+ {
+  "start": 17.77,
+  "end": 19.057,
+  "text": "THEN THE ASSISTANT WHISPERED",
+  "words": [
+   [
+    "THEN",
+    17.67
+   ],
+   [
+    "THE",
+    17.83
+   ],
+   [
+    "ASSISTANT",
+    17.99
+   ],
+   [
+    "WHISPERED",
+    18.63
+   ]
+  ]
+ },
+ {
+  "start": 19.656,
+  "end": 21.099,
+  "text": "HE WAS STABBED IN THE PACK",
+  "words": [
+   [
+    "HE",
+    19.56
+   ],
+   [
+    "WAS",
+    19.72
+   ],
+   [
+    "STABBED",
+    19.92
+   ],
+   [
+    "IN",
+    20.4
+   ],
+   [
+    "THE",
+    20.52
+   ],
+   [
+    "PACK",
+    20.72
+   ]
+  ]
+ },
+ {
+  "start": 21.744,
+  "end": 22.055,
+  "text": "WAIT",
+  "words": [
+   [
+    "WAIT",
+    21.64
+   ]
+  ]
+ },
+ {
+  "start": 22.651,
+  "end": 23.867,
+  "text": "WHAT HAD HE JUST REVEALED",
+  "words": [
+   [
+    "WHAT",
+    22.55
+   ],
+   [
+    "HAD",
+    22.71
+   ],
+   [
+    "HE",
+    22.87
+   ],
+   [
+    "JUST",
+    23.07
+   ],
+   [
+    "REVEALED",
+    23.27
+   ]
+  ]
+ },
+ {
+  "start": 24.518,
+  "end": 27.682,
+  "text": "NO ONE HAD SEEN THE BODY NO ONE HAD MENTIONED A KNIFE",
+  "words": [
+   [
+    "NO",
+    24.42
+   ],
+   [
+    "ONE",
+    24.62
+   ],
+   [
+    "HAD",
+    24.82
+   ],
+   [
+    "SEEN",
+    25.06
+   ],
+   [
+    "THE",
+    25.3
+   ],
+   [
+    "BODY",
+    25.46
+   ],
+   [
+    "NO",
+    25.98
+   ],
+   [
+    "ONE",
+    26.3
+   ],
+   [
+    "HAD",
+    26.5
+   ],
+   [
+    "MENTIONED",
+    26.74
+   ],
+   [
+    "A",
+    27.18
+   ],
+   [
+    "KNIFE",
+    27.34
+   ]
+  ]
+ },
+ {
+  "start": 28.348,
+  "end": 29.403,
+  "text": "DETECTIVE TURNED TO HIM",
+  "words": [
+   [
+    "DETECTIVE",
+    28.25
+   ],
+   [
+    "TURNED",
+    28.89
+   ],
+   [
+    "TO",
+    29.17
+   ],
+   [
+    "HIM",
+    29.29
+   ]
+  ]
+ },
+ {
+  "start": 30.136,
+  "end": 31.673,
+  "text": "I NEVER SAID HE WAS STABBED",
+  "words": [
+   [
+    "I",
+    30.04
+   ],
+   [
+    "NEVER",
+    30.2
+   ],
+   [
+    "SAID",
+    30.44
+   ],
+   [
+    "HE",
+    30.76
+   ],
+   [
+    "WAS",
+    30.96
+   ],
+   [
+    "STABBED",
+    31.16
+   ]
+  ]
+ },
+ {
+  "start": 32.309,
+  "end": 33.527,
+  "text": "THE ASSISTANT FROZE",
+  "words": [
+   [
+    "THE",
+    32.21
+   ],
+   [
+    "ASSISTANT",
+    32.33
+   ],
+   [
+    "FROZE",
+    33.01
+   ]
+  ]
+ },
+ {
+  "start": 34.094,
+  "end": 34.683,
+  "text": "HE KNEW",
+  "words": [
+   [
+    "HE",
+    33.99
+   ],
+   [
+    "KNEW",
+    34.27
+   ]
+  ]
+ },
+ {
+  "start": 35.078,
+  "end": 36.753,
+  "text": "BECAUSE HE WAS THE ONE WHO KILLED HIM",
+  "words": [
+   [
+    "BECAUSE",
+    34.98
+   ],
+   [
+    "HE",
+    35.3
+   ],
+   [
+    "WAS",
+    35.54
+   ],
+   [
+    "THE",
+    35.7
+   ],
+   [
+    "ONE",
+    35.9
+   ],
+   [
+    "WHO",
+    36.1
+   ],
+   [
+    "KILLED",
+    36.3
+   ],
+   [
+    "HIM",
+    36.66
+   ]
+  ]
+ },
+ {
+  "start": 37.552,
+  "end": 40.913,
+  "text": "SOMETIMES THE SMALLEST MISTAKE REVEALS EVERYTHING",
+  "words": [
+   [
+    "SOMETIMES",
+    37.45
+   ],
+   [
+    "THE",
+    38.29
+   ],
+   [
+    "SMALLEST",
+    38.65
+   ],
+   [
+    "MISTAKE",
+    39.21
+   ],
+   [
+    "REVEALS",
+    39.77
+   ],
+   [
+    "EVERYTHING",
+    40.45
+   ]
+  ]
+ }
+]

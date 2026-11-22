@@ -1,0 +1,8 @@
+node_modules/
+out/
+models/
+.venv/
+.DS_Store
+.env
+*.mov
+*.webm
