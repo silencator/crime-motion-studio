@@ -194,3 +194,16 @@ On Arian's PC with the RTX 2070, re-encode with NVENC if wanted: `-c:v h264_nven
 - **Keep the voice clean, especially the first words.** No hissy or noisy effects under the voice (e.g. the lighter spark/flame burst sat on the first words of CASE 001). Opening effects are quiet and low (a soft click, a low rumble), never broadband hiss. Breathing and the other effects as in CASE 001 are approved.
 - **IF's signature car:** a black classic late-60s fastback (Mustang-style shape, no Ford logos/badges). It's his iconic car only. Use it whenever the story needs him driving or arriving (a good hook shot). Build it once into `src/characters/` the first time it's needed and reuse it.
 - CASE 001 was approved by Arian as-is (rendered video in `videos/`).
+
+---
+
+## 16. After Arian approves a video (always, without being asked)
+
+When Arian says the video is good / accepts it, deliver in one message:
+1. **5 best YouTube Shorts titles** (curiosity gap, no spoiler of the twist, under ~50 characters), with one top pick.
+2. **YouTube description** (hook line without spoiler, a comment-bait question, "CASE 00X · Detective IF", "Follow for the next case", 6–9 hashtags incl. #shorts) **plus a short TikTok caption**.
+3. **Thumbnail/cover recommendation** (the most striking frame + timestamp), and render the clean cover (no subtitles, big yellow italic title + red CASE tag) as `videos/CASE_00X_thumbnail.jpg` (see `src/cases/case001/Thumbnail.tsx`), commit, push and send it.
+Also: the final MP4 goes to `videos/` via Git LFS (needs the `crime-motion-studio` cloud environment), pushed and sent.
+
+- If Arian sends a reference image for IF's car, save it as `references/if_car.*` and match the car rig to it (no brand logos).
+- Channel started Nov 2026; CASE 001 scheduled on YouTube.
