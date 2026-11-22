@@ -13,7 +13,7 @@ I will attach the reference files listed below in this folder / in chat.
 - Every video is a **real animated edit**: characters move (walk, turn, crouch, smoke, point a flashlight, talk), scenes change, camera moves vary. **Not** a slideshow of still pictures with zoom.
 - Built entirely with code (2D vector animation + compositing + sound), rendered to MP4.
 
-## 2. Reference files (in this folder)
+## 2. Reference files (in `references/`; `reference_2-40am.mp4` not added yet)
 
 1. **`reference_2-40am.mp4`**: the storytelling and format reference. 92 s vertical 2D animated horror-crime short ("2:40 AM", a delivery rider, a killer on the 9th floor, "3 rules").
    Take from it:
