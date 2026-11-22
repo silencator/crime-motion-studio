@@ -205,5 +205,6 @@ When Arian says the video is good / accepts it, deliver in one message:
 3. **Thumbnail/cover recommendation** (the most striking frame + timestamp), and render the clean cover (no subtitles, big yellow italic title + red CASE tag) as `videos/CASE_00X_thumbnail.jpg` (see `src/cases/case001/Thumbnail.tsx`), commit, push and send it.
 Also: the final MP4 goes to `videos/` via Git LFS (needs the `crime-motion-studio` cloud environment), pushed and sent.
 
-- If Arian sends a reference image for IF's car, save it as `references/if_car.*` and match the car rig to it (no brand logos).
+- **IF's car reference: `references/if_car.png`**: a black 1965–67 fastback (Mustang shape): long hood, sloping fastback roof with side louvres, chrome bumpers, window trim and rocker strip, wide grille with chrome surround, round amber-lit headlights, round fog/turn lights, dark five-spoke wheels, tri-bar red tail lights, thin antenna, weathered/dusty black paint with red rim light. Build the rig to match it (side, 3/4 front, rear, headlight close-ups), but draw no brand logos, emblems or lettering (blank grille centre, no pony badge).
+- **Car sound:** a classic V8 muscle-car sound (deep burbling idle, rumbling throttle, growl on acceleration, exhaust crackle, door thunk, ignition crank). Synthesise it into `public/sfx/` the first time it's needed.
 - Channel started Nov 2026; CASE 001 scheduled on YouTube.
