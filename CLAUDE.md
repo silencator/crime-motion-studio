@@ -209,6 +209,9 @@ On Arian's PC with the RTX 2070, re-encode with NVENC if wanted: `-c:v h264_nven
   - IF extreme eye close-up with narrowing brow + deep hit (001, 002); over-the-shoulder rack focus IF → suspect (001, 002)
   - blurred bokeh backgrounds behind every close-up; IF cigarette close-up near the end (001 hook, 002 ending)
   - ending = exterior in falling snow, walking/driving away, then the stamp (001, 002)
+  - **New places every case:** each case gets its own new locations (never the same street, room or museum again unless the story returns there), and they should look clearly different: other places, times of day, weather and palettes.
+  - **Show the journey sometimes:** e.g. IF leaving his flat or office, walking down the stairwell, starting the black fastback, driving through the city at night (interior dashboard shot, wipers, passing lamps, rain/snow on the windscreen), arriving at the scene. Mix up how a case opens: not always a clue close-up.
+  - **IF's outfit can change:** his face and identity stay the same (slicked hair, tired eyes, moustache, scar), but his clothes can vary with the story and weather: e.g. trench coat in the rain, hat and scarf in a blizzard, shirt sleeves + waistcoat + loosened tie at the office at night, a different tie or coat colour. Add these as outfit options on the IF rigs (IFBust / IFBody) the first time they're needed, and reuse them.
   Vary the emotions too: not every culprit is a nervous sweater (cold, smug, angry, crying, laughing, trying to run); IF can be amused, tired, angry, sad. Vary where scenes happen, the time of day, weather (rain, fog, clear frost, dawn), the palette and the kind of reveal (object, reflection, sound, photo, footprint, a flashback, a split screen…). In the shot list you show Arian, mark which ideas are new.
 - CASE 001 and CASE 002 were approved by Arian (rendered videos in `videos/`).
 
