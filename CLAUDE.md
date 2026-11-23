@@ -249,16 +249,17 @@ Also: the final MP4 goes to `videos/` via Git LFS (needs the `crime-motion-studi
 
 ---
 
-## 17. Retention TRIAL (one video only: CASE 002; not a permanent rule yet)
+## 17. Retention TRIAL (one video only: CASE 004; not a permanent rule yet)
 
-Arian agreed to try this **once** on CASE 002. If he likes it and it works on YouTube, it becomes a permanent rule
-(then move it into §15). Until he says so, **do not apply it to any other case**. After CASE 002, ask him for its numbers and compare.
+Arian agreed to try this **once** on CASE 004 (CASE 001–003 were made the normal way). If he likes it and it works on YouTube, it becomes a permanent rule
+(then move it into §15). Until he says so, **do not apply it to any other case**. After CASE 004, ask him for its numbers and compare with CASE 001–003. If it doesn't work, drop §17 and go back to the normal style.
 
 **Why (CASE 001 baseline, 2 days old):** "Stayed to watch" 37 % on ~580 feed impressions (Shorts typically 30–50 %, 60 %+ strong).
 That stat only measures the first 1–2 s. CASE 001 opened on a familiar fact ("A millionaire was found dead in his mansion"),
 a dark, low-contrast frame, mostly text; the strongest line ("He was stabbed in the back") came only at 19.5 s; length 43.5 s with a ~6 s outro.
 
-**Trial rules for CASE 002:**
+**Trial rules for CASE 004:**
+- The script is still Arian's (§15): the new hook must be in his script/voice-over. If he wants, write the script with the hook built in first.
 - **Hook = a question or challenge, mid-scene, voice on frame 1.** e.g. "Three suspects. One of them just confessed by accident. Can you catch it?"
   Alternative: **cold-open on the twist line**, then "Nobody had told him that.", then rewind into the story.
 - **Frame 1 bright and readable:** close-up of a face or eyes, high contrast, motion, a red accent; lighter grain for the first 2 s;
@@ -267,5 +268,5 @@ a dark, low-contrast frame, mostly text; the strongest line ("He was stabbed in 
 - **Hook on the crime, not on IF** (the audience doesn't know him yet).
 - **Length 28–35 s**, ending/"CASE CLOSED" outro only 1–2 s; the last line loops back into the first so people rewatch.
 - **Cover must not spoil the twist** (CASE 001's cover shows "stabbed").
-- Get the **audience retention graph** (Overview tab) for CASE 001 and CASE 002: a sharp drop in the first 3 s means the hook is the problem;
+- Get the **audience retention graph** (Overview tab) for CASE 001–004: a sharp drop in the first 3 s means the hook is the problem;
   a drop around 20–30 s means the middle is the problem.
