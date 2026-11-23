@@ -447,7 +447,7 @@ export const SplitShot: React.FC<ShotP> = ({f, g}) => {
       </AbsoluteFill>
       {/* bottom: the case being emptied */}
       <AbsoluteFill style={{clipPath: 'inset(50% 0 0 0)'}}>
-        <Stage cam={{x: 540, y: 1300, zoom: 1.05, f, shake: 1.5}} bg="#101a18">
+        <Stage cam={{x: 540, y: 1150, zoom: 1.05, f, shake: 1.5}} bg="#101a18">
           <Defs />
           <Layer>
             <rect x={-400} y={900} width={1900} height={1200} fill="#14201d" />
