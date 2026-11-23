@@ -142,6 +142,8 @@ Shot plan idea (adapt it to the real audio timing):
 
 ## 13. Decisions log
 
+- **Not only murders (Arian, after CASE 002):** the channel is "CRIME IF", so stories cover the whole crime world: thefts, heists, fraud and scams, forgery, kidnapping and missing people, blackmail, arson, smuggling, fake alibis, hit-and-runs, insurance fraud, impostors, cold cases. When suggesting scripts, mix the niches and the kind of clue (a slip of the tongue, a physical detail, a timing mistake, a reflection, a sound…).
+
 - **Stack:** Remotion (React/SVG, code-built animation), same approach as `finance-motion-studio` and `football-motion-studio`. Reuse their helper scripts (`transcribe.py`, `make-sfx.py`, `render.mjs`) where useful.
 - **Other characters:** Arian lets Claude design all side characters (suspects, victims, police, witnesses) freely, based on the audio and script. They only need to fit the video and the shared style. No approval needed.
 - **No video prompt needed:** this file is the standing brief. Each video needs only the voice-over audio and the script (scene notes optional). The Seedance prompt in the PDF is for an AI video generator and is used only as a style reference.
