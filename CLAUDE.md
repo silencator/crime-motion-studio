@@ -193,6 +193,7 @@ On Arian's PC with the RTX 2070, re-encode with NVENC if wanted: `-c:v h264_nven
 - **Never open on black.** Frame 1 is already a strong, lit image (a character, motion, light), and the voice starts on frame 1. No silent or black pre-roll; the first second decides retention.
 - **Keep the voice clean, especially the first words.** No hissy or noisy effects under the voice (e.g. the lighter spark/flame burst sat on the first words of CASE 001). Opening effects are quiet and low (a soft click, a low rumble), never broadband hiss. Breathing and the other effects as in CASE 001 are approved.
 - **IF's signature car:** a black classic late-60s fastback (Mustang-style shape, no Ford logos/badges). It's his iconic car only. Use it whenever the story needs him driving or arriving (a good hook shot). Build it once into `src/characters/` the first time it's needed and reuse it.
+- **Always end on a solved case:** even when the script's last line is open-ended (e.g. "knew exactly where to look next"), show the payoff visually (the hidden evidence found, the culprit exposed) and then slam the red **CASE CLOSED** stamp. Every video, no exceptions.
 - CASE 001 was approved by Arian as-is (rendered video in `videos/`).
 
 ---
