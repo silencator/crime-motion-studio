@@ -201,7 +201,16 @@ On Arian's PC with the RTX 2070, re-encode with NVENC if wanted: `-c:v h264_nven
 - **Keep the voice clean, especially the first words.** No hissy or noisy effects under the voice (e.g. the lighter spark/flame burst sat on the first words of CASE 001). Opening effects are quiet and low (a soft click, a low rumble), never broadband hiss. Breathing and the other effects as in CASE 001 are approved.
 - **IF's signature car:** a black classic late-60s fastback (Mustang-style shape, no Ford logos/badges). It's his iconic car only. Use it whenever the story needs him driving or arriving (a good hook shot). Build it once into `src/characters/` the first time it's needed and reuse it.
 - **Always end on a solved case:** even when the script's last line is open-ended (e.g. "knew exactly where to look next"), show the payoff visually (the hidden evidence found, the culprit exposed) and then slam the red **CASE CLOSED** stamp. Every video, no exceptions.
-- CASE 001 was approved by Arian as-is (rendered video in `videos/`).
+- **Every video must feel new (Arian, after CASE 002).** Reuse the *tools* (rigs, style, caption system, sound kit), never the *ideas*. For each new script, invent fresh shots, emotions, staging, colours and reveals from that story itself. Before writing the shot list, check this list of beats already used and don't repeat them unless the story truly needs it (then do it in a clearly different way):
+  - paper/document insert with a red pencil circle (CASE 001 report card, CASE 002 night log)
+  - culprit reaction = sweat drops + freeze + heartbeat zoom pulse (001 assistant, 002 guard)
+  - hard red punch-in on the culprit with a big red accent word (001 "stabbed", 002 "thief")
+  - culprit's giant shadow on a red-lit wall (001, 002)
+  - IF extreme eye close-up with narrowing brow + deep hit (001, 002); over-the-shoulder rack focus IF → suspect (001, 002)
+  - blurred bokeh backgrounds behind every close-up; IF cigarette close-up near the end (001 hook, 002 ending)
+  - ending = exterior in falling snow, walking/driving away, then the stamp (001, 002)
+  Vary the emotions too: not every culprit is a nervous sweater (cold, smug, angry, crying, laughing, trying to run); IF can be amused, tired, angry, sad. Vary where scenes happen, the time of day, weather (rain, fog, clear frost, dawn), the palette and the kind of reveal (object, reflection, sound, photo, footprint, a flashback, a split screen…). In the shot list you show Arian, mark which ideas are new.
+- CASE 001 and CASE 002 were approved by Arian (rendered videos in `videos/`).
 
 ---
 
