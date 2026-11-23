@@ -142,6 +142,8 @@ Shot plan idea (adapt it to the real audio timing):
 
 ## 13. Decisions log
 
+- **Background music (try from CASE 003):** "IF's theme", an original minor-key waltz in a 1970s mob-film mood (mandolin tremolo, accordion, muted trumpet, strings, waltz bass), composed and synthesised in code by `scripts/make-music.py` (demo: `public/music/IF_theme_demo.mp3`, approved by Arian as good enough to try). Copyright-free, never imitate an existing melody. Mix: very low under the voice (≈20 dB below, ducked while he speaks, a little up in pauses), cut to silence on the twist hit, back for the last line, resolve on the CASE CLOSED stamp. Re-arrange it per case (instruments, tempo, key) so it never sounds the same twice.
+
 - **Not only murders (Arian, after CASE 002):** the channel is "CRIME IF", so stories cover the whole crime world: thefts, heists, fraud and scams, forgery, kidnapping and missing people, blackmail, arson, smuggling, fake alibis, hit-and-runs, insurance fraud, impostors, cold cases. When suggesting scripts, mix the niches and the kind of clue (a slip of the tongue, a physical detail, a timing mistake, a reflection, a sound…).
 
 - **Stack:** Remotion (React/SVG, code-built animation), same approach as `finance-motion-studio` and `football-motion-studio`. Reuse their helper scripts (`transcribe.py`, `make-sfx.py`, `render.mjs`) where useful.
