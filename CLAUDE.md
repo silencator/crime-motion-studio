@@ -177,6 +177,16 @@ Suspects 'guard'       older museum night guard (peaked cap, grey moustache) in 
 fx.tsx Torch           flashlight pool + beam overlay (stepped hand-held jitter)
 scripts/make-sfx-car.py  V8 kit: car-idle, car-arrive, car-depart, car-ignition, car-door, keys
 src/cases/case002/     CASE 002 "The Missing Painting" (same structure as case001)
+src/characters/Thief.tsx  ThiefBody (side walk rig: mask, bag 0/1/2, cuffed, big shoes, hunch) + Officer (stand/yawn/walk, torch)
+Suspects 'thief'       young buzz-cut thief, black roll-neck + leather jacket, `smirk` prop (smug one-sided smile)
+IFBust outfit/hat/smile  outfit 'trench' (tan rain coat), hat (fedora), smile 0..1; IFBody hat (ProfileFedora)
+src/locations/heist.tsx  PlanWall (corkboard, strings, 12-month calendar, takeDown/receipt), JewelleryFront, WetStreet,
+                       StoreInterior, DisplayCase, Diamond, CCTVCam, LEDClock (7-seg), Stopwatch, PrepTable, BigShoe,
+                       FlatRoom, PaddedDoor (Soviet leatherette), Sedan (boxy 70s saloon), PayTerminal, BankCard, EvidenceBag/Receipt
+fx.tsx Rain / Glint    screen-space rain (3 depths + splashes), 4-point sparkle
+scripts/make-sfx-case003.py  bed-rain, knock, card-in, beep, diamonds, drop-plip, watch-click, ticks-fast, cuffs, rewind, servo, latch
+scripts/make-music-case003.py  IF's theme heist arrangement (Em, 126 BPM), timeline-scored, ducking baked from the VO envelope
+src/cases/case003/     CASE 003 "The Perfect Crime"
 src/cases/case001/     timeline.ts (shot times, subtitles, accent titles), shots.tsx (one component per shot), Case001.tsx (edit + sound mix)
 public/sfx/            synthesised sound kit (scripts/make-sfx.py): wind/drone/hum/room beds, siren, lighter, inhale/exhale,
                        steps (snow/wood), door creak, paper, whooshes, hit-deep, riser, tick/tock, heartbeat, stamp, sting, flash
@@ -213,6 +223,9 @@ On Arian's PC with the RTX 2070, re-encode with NVENC if wanted: `-c:v h264_nven
   - IF extreme eye close-up with narrowing brow + deep hit (001, 002); over-the-shoulder rack focus IF → suspect (001, 002)
   - blurred bokeh backgrounds behind every close-up; IF cigarette close-up near the end (001 hook, 002 ending)
   - ending = exterior in falling snow, walking/driving away, then the stamp (001, 002)
+  - CASE 003 used: planning corkboard + calendar crossed off; binocular POV; CCTV tracking brackets + typed labels; top-down kit layout;
+    split screen (stopwatch / hands); diamonds pouring; rain erasing footprints; pull-out from a window to IF's car; knocks + rippling tea;
+    VHS rewind flashback (sepia); bank-card name highlight + APPROVED; bookend (same wall taken down); cuffed walk-out + diamond in a puddle
   - **New places every case:** each case gets its own new locations (never the same street, room or museum again unless the story returns there), and they should look clearly different: other places, times of day, weather and palettes.
   - **Show the journey sometimes:** e.g. IF leaving his flat or office, walking down the stairwell, starting the black fastback, driving through the city at night (interior dashboard shot, wipers, passing lamps, rain/snow on the windscreen), arriving at the scene. Mix up how a case opens: not always a clue close-up.
   - **IF's outfit can change:** his face and identity stay the same (slicked hair, tired eyes, moustache, scar), but his clothes can vary with the story and weather: e.g. trench coat in the rain, hat and scarf in a blizzard, shirt sleeves + waistcoat + loosened tie at the office at night, a different tie or coat colour. Add these as outfit options on the IF rigs (IFBust / IFBody) the first time they're needed, and reuse them.
