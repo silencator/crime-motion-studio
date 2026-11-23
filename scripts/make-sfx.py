@@ -189,3 +189,35 @@ save('sting', fade(norm(bell, -6), .002, .5), stereo=True)
 # Camera / shutter-like flash pop for police-light hits.
 x = t(.25)
 save('flash', fade(norm(sosfilt(hp(2000), noise(.25)) * np.exp(-x * 30), -12)))
+
+# ---------------- added for CASE 004 (glass, safe, flashlight) ----------------
+# Glass shatter: low thump + bright noise crack + a shower of short resonant shard pings.
+d = 1.6; x = t(d)
+thump = np.sin(2 * np.pi * np.cumsum(60 + 90 * np.exp(-x * 30)) / SR) * np.exp(-x * 14)
+crack = sosfilt(bp(1800, 12000), noise(d)) * np.exp(-x * 26)
+pings = np.zeros(len(x))
+for i in range(90):
+    on = rng.uniform(0, 0.55) ** 1.6; fq = rng.uniform(2200, 9500); dk = rng.uniform(25, 70)
+    xx = np.clip(x - on, 0, None)
+    pings += np.sin(2 * np.pi * fq * xx) * np.exp(-xx * dk) * (x >= on) * rng.uniform(0.2, 1)
+save('glass-break', fade(norm(thump * .9 + crack * .7 + pings * .35, -3), .0005, .2), stereo=True)
+
+# Glass tinkle: a few shards settling on snow (soft, sparse pings).
+d = 1.4; x = t(d); tk2 = np.zeros(len(x))
+for i in range(14):
+    on = rng.uniform(0, 1.0); fq = rng.uniform(3000, 8000); xx = np.clip(x - on, 0, None)
+    tk2 += np.sin(2 * np.pi * fq * xx) * np.exp(-xx * rng.uniform(30, 60)) * (x >= on) * rng.uniform(0.2, 1)
+save('glass-tinkle', fade(norm(tk2, -16), .002, .2), stereo=True)
+
+# Safe door: heavy steel clunk + low hinge groan.
+d = 1.5; x = t(d)
+clunk = sum(a * np.sin(2 * np.pi * f * x) * np.exp(-x * dd) for f, a, dd in [(95, 1, 9), (230, .6, 14), (610, .35, 22), (1330, .15, 30)])
+clunk += sosfilt(bp(500, 3000), noise(d)) * np.exp(-x * 60) * .6
+f0 = 120 + 50 * smooth_rand(d, 5) + 40 * x; ph = 2 * np.pi * np.cumsum(f0) / SR
+groan = sosfilt(bp(150, 1200), 2 * ((ph / (2 * np.pi)) % 1) - 1) * np.clip((x - .25) / .3, 0, 1) * np.exp(-np.clip(x - .25, 0, None) * 2.2)
+save('safe-clank', fade(norm(clunk + groan * .35, -4), .0005, .2))
+
+# Flashlight switch click (two-stage plastic click, low and soft).
+d = .25; x = t(d)
+ck = lambda off, f: np.sin(2 * np.pi * f * np.clip(x - off, 0, None)) * np.exp(-np.clip(x - off, 0, None) * 160) * (x >= off)
+save('flash-click', fade(norm(sosfilt(lp(5000), ck(0, 1500) + ck(.035, 1100) * .7), -12)))

@@ -10,9 +10,10 @@ import {IFC as C} from './palette';
  *  walk   0 = standing, 1 = full stride (blend)
  *  wind   coat-tail flutter 0..1        t = seconds (for flutter)
  *  rim    rim-light colour (back edge)  dark = 0..1 silhouette amount (for backlit shots)
- *  look   head turn toward camera 0..1 (shows more face)
+ *  crouch 0..1 blends into a low crouch (front foot planted, back knee down, torso leaning, head down)
+ *  torch  0..1 flashlight in the front hand, aimed forward-down (aim = extra degrees); beam drawn when torch > 0
  */
-export type IFBodyProps = {phase?: number; walk?: number; wind?: number; t?: number; rim?: string; rimOp?: number; dark?: number; cig?: boolean};
+export type IFBodyProps = {phase?: number; walk?: number; wind?: number; t?: number; rim?: string; rimOp?: number; dark?: number; cig?: boolean; crouch?: number; torch?: number; aim?: number; beam?: number};
 
 type P = [number, number];
 const rot = (v: P, deg: number): P => {
@@ -46,25 +47,27 @@ const legFK = (hip: P, thigh: number, knee: number, footPitch: number) => {
   return {k, an, foot: -thigh + knee + footPitch};
 };
 
-export const IFBody: React.FC<IFBodyProps> = ({phase = 0, walk = 1, wind = 0.4, t = 0, rim = '#ffb45a', rimOp = 0.7, dark = 0, cig = false}) => {
+export const IFBody: React.FC<IFBodyProps> = ({phase = 0, walk = 1, wind = 0.4, t = 0, rim = '#ffb45a', rimOp = 0.7, dark = 0, cig = false, crouch = 0, torch = 0, aim = 0, beam = 1}) => {
+  const cr = crouch;
+  const mix = (a: number, b: number) => a + (b - a) * cr;
   const s = Math.sin(phase);
   const c = Math.cos(phase);
   const sb = Math.sin(phase + Math.PI);
   const cb = Math.cos(phase + Math.PI);
   const W = walk;
   // legs: thigh swing, knee bends during forward swing
-  const tF = 25 * s * W;
-  const kF = (4 + 34 * Math.pow(Math.max(0, c), 1.4)) * W + 3;
-  const tB = 25 * sb * W;
-  const kB = (4 + 34 * Math.pow(Math.max(0, cb), 1.4)) * W + 3;
+  const tF = mix(25 * s * W, 86);
+  const kF = mix((4 + 34 * Math.pow(Math.max(0, c), 1.4)) * W + 3, 98);
+  const tB = mix(25 * sb * W, 8);
+  const kB = mix((4 + 34 * Math.pow(Math.max(0, cb), 1.4)) * W + 3, 98);
   const hip0: P = [0, -486];
-  const lF = legFK(hip0, tF, kF, -12 * Math.max(0, c) * W);
-  const lB = legFK(hip0, tB, kB, -12 * Math.max(0, cb) * W);
+  const lF = legFK(hip0, tF, kF, mix(-12 * Math.max(0, c) * W, -12));
+  const lB = legFK(hip0, tB, kB, mix(-12 * Math.max(0, cb) * W, -40));
   // plant: lift whole body so the lowest ankle sits at foot height
   const lowest = Math.max(lF.an[1], lB.an[1]);
   const lift = lowest - -14;
   const bob = -lift;
-  const lean = 3 * W;
+  const lean = 3 * W + cr * 20;
   // arms (opposite to legs)
   const aF = -22 * s * W;
   const aB = -22 * sb * W;
@@ -76,8 +79,8 @@ export const IFBody: React.FC<IFBodyProps> = ({phase = 0, walk = 1, wind = 0.4, 
     const wr = add(el, rot([0, 180], -a - e));
     return {el, wr, ang: -a - e};
   };
-  const arF = armFK(aF, eF);
-  const arB = armFK(aB, eB);
+  const arF = armFK(mix(aF, 30) + torch * (1 - cr) * 50 + torch * cr * 18 + aim, mix(eF, 20) + torch * 20);
+  const arB = armFK(mix(aB, 42), mix(eB, 34));
   const flutter = Math.sin(t * 7.3) * 0.5 + Math.sin(t * 3.1 + 1) * 0.5;
   // coat hem points follow thighs; back hem trails + wind
   const hemY = -205;
@@ -106,7 +109,7 @@ export const IFBody: React.FC<IFBodyProps> = ({phase = 0, walk = 1, wind = 0.4, 
     );
   };
 
-  const Arm: React.FC<{a: ReturnType<typeof armFK>; back?: boolean}> = ({a, back}) => (
+  const Arm: React.FC<{a: ReturnType<typeof armFK>; back?: boolean; light?: number}> = ({a, back, light = 0}) => (
     <g>
       <Limb d={limb(sh, a.el, 47, 40)} fill={C.ink} />
       <Limb d={limb(a.el, a.wr, 40, 33)} fill={C.ink} />
@@ -119,6 +122,15 @@ export const IFBody: React.FC<IFBodyProps> = ({phase = 0, walk = 1, wind = 0.4, 
         <rect x={-24} y={-6} width={48} height={12} fill={C.shirt} stroke={C.ink} strokeWidth={2.4} />
         <Ink d="M-26 4 C-30 30 -22 58 -2 62 C18 64 30 46 28 22 C27 12 24 6 20 4 Z" fill={back ? C.gloveShade : C.glove} w={3} heavy={2} />
         <Line d="M-12 30 C-6 40 6 42 14 36" w={2} op={0.6} />
+        {light > 0 && (
+          <g opacity={light}>
+            {beam > 0 && <polygon points="-18,150 18,150 260,1500 -260,1500" fill="#fff4d6" opacity={0.16 * beam} style={{mixBlendMode: 'screen'}} />}
+            {beam > 0 && <polygon points="-14,150 14,150 120,1100 -120,1100" fill="#fff4d6" opacity={0.14 * beam} style={{mixBlendMode: 'screen'}} />}
+            <Ink d="M-15 20 H15 V120 C15 132 22 136 22 150 H-22 C-22 136 -15 132 -15 120 Z" fill="#26282c" w={2.6} heavy={1} />
+            <rect x={-20} y={146} width={40} height={8} fill="#fff6dc" stroke={C.ink} strokeWidth={1.6} />
+            {beam > 0 && <circle cx={0} cy={152} r={40} fill="url(#warmGlow)" opacity={0.7 * beam} />}
+          </g>
+        )}
       </g>
     </g>
   );
@@ -155,7 +167,7 @@ export const IFBody: React.FC<IFBodyProps> = ({phase = 0, walk = 1, wind = 0.4, 
         <Line d="M30 -800 C38 -650 40 -470 40 -260" w={2.4} op={0.55} />
         <path d="M-40 -470 L26 -470 L24 -448 L-38 -448 Z" fill={C.coatShade} stroke={C.ink} strokeWidth={2.4} />
         {/* HEAD */}
-        <g transform={`translate(18 ${-948 + Math.abs(s) * 3 * W}) scale(0.62)`}>
+        <g transform={`translate(18 ${-948 + Math.abs(s) * 3 * W}) scale(0.62) rotate(${cr * 22 + torch * 6} 0 120)`}>
           <ProfileHead rim={rim} rimOp={rimOp} cig={cig} />
         </g>
         {/* raised collar */}
@@ -166,7 +178,7 @@ export const IFBody: React.FC<IFBodyProps> = ({phase = 0, walk = 1, wind = 0.4, 
         {/* rim light down the back edge */}
         <Line d={`M-62 -820 C-88 -760 -96 -640 -84 -520 C-92 -420 ${hemBack[0] + 6} ${hemY - 60} ${hemBack[0]} ${hemBack[1]}`} w={5} c={rim} op={rimOp} />
         {/* FRONT ARM */}
-        <Arm a={arF} />
+        <Arm a={arF} light={torch} />
         <Line d={`M${sh[0] - 40} ${sh[1] + 20} L${arF.el[0] - 34} ${arF.el[1]}`} w={4} c={rim} op={rimOp * 0.6} />
       </g>
     </g>
