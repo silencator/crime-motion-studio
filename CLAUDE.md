@@ -231,7 +231,7 @@ On Arian's PC with the RTX 2070, re-encode with NVENC if wanted: `-c:v h264_nven
   - **IF's outfit can change:** his face and identity stay the same (slicked hair, tired eyes, moustache, scar), but his clothes can vary with the story and weather: e.g. trench coat in the rain, hat and scarf in a blizzard, shirt sleeves + waistcoat + loosened tie at the office at night, a different tie or coat colour. Add these as outfit options on the IF rigs (IFBust / IFBody) the first time they're needed, and reuse them.
   - **The script is fixed, the visuals are free:** never change Arian's words (voice-over and captions follow the script exactly). All the imagination goes into what we see: scenario, locations, staging, characters' looks and emotions, camera and colour.
   Vary the emotions too: not every culprit is a nervous sweater (cold, smug, angry, crying, laughing, trying to run); IF can be amused, tired, angry, sad. Vary where scenes happen, the time of day, weather (rain, fog, clear frost, dawn), the palette and the kind of reveal (object, reflection, sound, photo, footprint, a flashback, a split screen…). In the shot list you show Arian, mark which ideas are new.
-- CASE 001 and CASE 002 were approved by Arian (rendered videos in `videos/`).
+- CASE 001, CASE 002 and CASE 003 were approved by Arian (rendered videos in `videos/`).
 
 ---
 
