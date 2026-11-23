@@ -166,6 +166,13 @@ src/characters/        IFBust (close-up rig: mouth, blink, look, brow, tilt, rim
 src/locations/         soviet.tsx (RedSky, Block, Pylon, Cables, Factory, Lamp, Fence, BareTree, PoliceCar, Mansion, SnowGround)
                        StreetScene.tsx (5-depth snowy khrushchyovka street), interiors.tsx (Corridor, BodyRoomTop,
                        ReportCard, RevealWall, Tape, Sconce)
+src/characters/IFCar.tsx  IF's black fastback: FastbackSide (roll, lights, brake, rim) + FastbackFront (headlights); no badges
+src/locations/museum.tsx  MuseumFacade, GalleryHall (EMPTY_X), EmptyFrameWall, CutCanvas, GiltFrame, Art (portrait/landscape/
+                       still/sea), BackCorridor (DOOR_X, radiator), HiddenCanvas (unroll), NightLog
+Suspects 'guard'       older museum night guard (peaked cap, grey moustache) in the same bust rig (type NPCKind)
+fx.tsx Torch           flashlight pool + beam overlay (stepped hand-held jitter)
+scripts/make-sfx-car.py  V8 kit: car-idle, car-arrive, car-depart, car-ignition, car-door, keys
+src/cases/case002/     CASE 002 "The Missing Painting" (same structure as case001)
 src/cases/case001/     timeline.ts (shot times, subtitles, accent titles), shots.tsx (one component per shot), Case001.tsx (edit + sound mix)
 public/sfx/            synthesised sound kit (scripts/make-sfx.py): wind/drone/hum/room beds, siren, lighter, inhale/exhale,
                        steps (snow/wood), door creak, paper, whooshes, hit-deep, riser, tick/tock, heartbeat, stamp, sting, flash

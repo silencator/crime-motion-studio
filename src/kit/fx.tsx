@@ -273,3 +273,39 @@ export const Dust: React.FC<{f: number; x: number; y: number; w: number; h: numb
 };
 
 export const Black: React.FC<{op?: number}> = ({op = 1}) => <AbsoluteFill style={{background: '#000', opacity: op}} />;
+
+/**
+ * Flashlight / torch pool (screen space, HTML overlay): darkens the frame except a soft circle at (x, y),
+ * adds a cool-white hot spot and a faint beam from (sx, sy) when given. Stepped jitter = hand-held.
+ */
+export const Torch: React.FC<{f: number; x: number; y: number; r?: number; dark?: number; tint?: string; sx?: number; sy?: number; jitter?: number}> = ({
+  f,
+  x,
+  y,
+  r = 330,
+  dark = 0.9,
+  tint = 'rgba(235,240,255,0.22)',
+  sx,
+  sy,
+  jitter = 6,
+}) => {
+  const k = stepF(f, 3);
+  const jx = x + noise1(k * 0.05 + 3) * jitter;
+  const jy = y + noise1(k * 0.05 + 41) * jitter;
+  const beam = sx !== undefined && sy !== undefined;
+  const ang = beam ? Math.atan2(jy - sy!, jx - sx!) : 0;
+  const len = beam ? Math.hypot(jx - sx!, jy - sy!) : 0;
+  return (
+    <AbsoluteFill style={{pointerEvents: 'none'}}>
+      <AbsoluteFill style={{background: `radial-gradient(circle ${r * 1.35}px at ${jx}px ${jy}px, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 45%, rgba(0,0,0,${dark}) 100%)`}} />
+      <AbsoluteFill style={{background: `radial-gradient(circle ${r}px at ${jx}px ${jy}px, ${tint} 0%, rgba(0,0,0,0) 80%)`, mixBlendMode: 'screen'}} />
+      {beam && (
+        <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} style={{position: 'absolute', inset: 0, mixBlendMode: 'screen', filter: 'blur(14px)'}}>
+          <g transform={`translate(${sx} ${sy}) rotate(${(ang * 180) / Math.PI})`}>
+            <polygon points={`0,-14 ${len},${-r * 0.8} ${len},${r * 0.8} 0,14`} fill="#dfe8ff" opacity={0.1} />
+          </g>
+        </svg>
+      )}
+    </AbsoluteFill>
+  );
+};
