@@ -230,6 +230,10 @@ On Arian's PC with the RTX 2070, re-encode with NVENC if wanted: `-c:v h264_nven
   - CASE 003 used: planning corkboard + calendar crossed off; binocular POV; CCTV tracking brackets + typed labels; top-down kit layout;
     split screen (stopwatch / hands); diamonds pouring; rain erasing footprints; pull-out from a window to IF's car; knocks + rippling tea;
     VHS rewind flashback (sepia); bank-card name highlight + APPROVED; bookend (same wall taken down); cuffed walk-out + diamond in a puddle
+  - CASE 004 used: 3-cut hook (liar's face under police lights / broken pane / light bar); magnifying-glass lens over snow;
+    shop clock at 2:00; safe in a flashlight pool; IF crouch + torch by the window; top-down snow with IF's prints stopping short;
+    gloved hand lifting a shard off clean crust; window bursting OUTWARD (amber flashback); dashed "ghost thief" dissolving into snow;
+    hands hiding cash under a floorboard; typewriter typing the claim; ending = culprit behind the militia car window + evidence bag (loops to frame 1)
   - **New places every case:** each case gets its own new locations (never the same street, room or museum again unless the story returns there), and they should look clearly different: other places, times of day, weather and palettes.
   - **Show the journey sometimes:** e.g. IF leaving his flat or office, walking down the stairwell, starting the black fastback, driving through the city at night (interior dashboard shot, wipers, passing lamps, rain/snow on the windscreen), arriving at the scene. Mix up how a case opens: not always a clue close-up.
   - **IF's outfit can change:** his face and identity stay the same (slicked hair, tired eyes, moustache, scar), but his clothes can vary with the story and weather: e.g. trench coat in the rain, hat and scarf in a blizzard, shirt sleeves + waistcoat + loosened tie at the office at night, a different tie or coat colour. Add these as outfit options on the IF rigs (IFBust / IFBody) the first time they're needed, and reuse them.
@@ -270,7 +274,7 @@ a dark, low-contrast frame, mostly text; the strongest line ("He was stabbed in 
   at most one short on-screen line (≤ 5 words). No big text title over the hook shot.
 - **2–3 cuts in the first 3 s.**
 - **Hook on the crime, not on IF** (the audience doesn't know him yet).
-- **Length 28–35 s**, ending/"CASE CLOSED" outro only 1–2 s; the last line loops back into the first so people rewatch.
+- **Length 28–35 s**, ending/"CASE CLOSED" outro only 1–2 s (CASE 004: pauses tightened with `scripts/tighten-vo.py`, words untouched; its VO is 36.4 s of speech, so the cut runs 36.9 s); the last line loops back into the first so people rewatch.
 - **Cover must not spoil the twist** (CASE 001's cover shows "stabbed").
 - Get the **audience retention graph** (Overview tab) for CASE 001–004: a sharp drop in the first 3 s means the hook is the problem;
   a drop around 20–30 s means the middle is the problem.
