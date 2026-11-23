@@ -105,11 +105,10 @@ export const MansionExt: React.FC<ShotP> = ({f, g}) => {
 /* ================================================================== */
 /* 3 · LINEUP: three suspects lit as they are named                   */
 /* ================================================================== */
-type Trio = Exclude<SuspectKind, 'pawnbroker'>;
-const SUSPECT_X: Record<Trio, number> = {wife: 420, driver: 1120, assistant: 1820};
-const Lineup: React.FC<{g: number; lit: Record<Trio, number>; look?: Partial<Record<Trio, [number, number]>>; fear?: number}> = ({g, lit, look = {}, fear = 0}) => (
+const SUSPECT_X: Record<SuspectKind, number> = {wife: 420, driver: 1120, assistant: 1820};
+const Lineup: React.FC<{g: number; lit: Record<SuspectKind, number>; look?: Partial<Record<SuspectKind, [number, number]>>; fear?: number}> = ({g, lit, look = {}, fear = 0}) => (
   <>
-    {(['wife', 'driver', 'assistant'] as Trio[]).map((k, i) => {
+    {(['wife', 'driver', 'assistant'] as SuspectKind[]).map((k, i) => {
       const b = lit[k];
       const sway = noise1(stepF(g, 6) * 0.02 + i * 9) * 4;
       return (
@@ -152,7 +151,7 @@ export const LineupShot: React.FC<ShotP> = ({f, g}) => {
         </Layer>
         <Layer depth={1}>
           {/* spotlight cones per suspect */}
-          {(['wife', 'driver', 'assistant'] as Trio[]).map((k) => (
+          {(['wife', 'driver', 'assistant'] as SuspectKind[]).map((k) => (
             <polygon key={k} points={`${SUSPECT_X[k] - 60},0 ${SUSPECT_X[k] + 60},0 ${SUSPECT_X[k] + 420},1900 ${SUSPECT_X[k] - 420},1900`} fill="#ffd89a" opacity={0.08 * lit[k]} />
           ))}
           <Lineup g={g} lit={lit} look={{wife: [0.3, 0.4], driver: [-0.4, 0], assistant: [noise1(stepF(g, 10) * 0.05) * 0.8, 0]}} />

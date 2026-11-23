@@ -142,6 +142,10 @@ Shot plan idea (adapt it to the real audio timing):
 
 ## 13. Decisions log
 
+- **Background music (try from CASE 003):** "IF's theme", an original minor-key waltz in a 1970s mob-film mood (mandolin tremolo, accordion, muted trumpet, strings, waltz bass), composed and synthesised in code by `scripts/make-music.py` (demo: `public/music/IF_theme_demo.mp3`, approved by Arian as good enough to try). Copyright-free, never imitate an existing melody. Mix: very low under the voice (≈20 dB below, ducked while he speaks, a little up in pauses), cut to silence on the twist hit, back for the last line, resolve on the CASE CLOSED stamp. Re-arrange it per case (instruments, tempo, key) so it never sounds the same twice.
+
+- **Not only murders (Arian, after CASE 002):** the channel is "CRIME IF", so stories cover the whole crime world: thefts, heists, fraud and scams, forgery, kidnapping and missing people, blackmail, arson, smuggling, fake alibis, hit-and-runs, insurance fraud, impostors, cold cases. When suggesting scripts, mix the niches and the kind of clue (a slip of the tongue, a physical detail, a timing mistake, a reflection, a sound…).
+
 - **Stack:** Remotion (React/SVG, code-built animation), same approach as `finance-motion-studio` and `football-motion-studio`. Reuse their helper scripts (`transcribe.py`, `make-sfx.py`, `render.mjs`) where useful.
 - **Other characters:** Arian lets Claude design all side characters (suspects, victims, police, witnesses) freely, based on the audio and script. They only need to fit the video and the shared style. No approval needed.
 - **No video prompt needed:** this file is the standing brief. Each video needs only the voice-over audio and the script (scene notes optional). The Seedance prompt in the PDF is for an AI video generator and is used only as a style reference.
@@ -165,6 +169,24 @@ src/characters/        IFBust (close-up rig: mouth, blink, look, brow, tilt, rim
                        Suspects (bust rig: wife / driver / assistant / pawnbroker; mouth, blink, look, fear, sweat)
 src/locations/         soviet.tsx (RedSky, Block, Pylon, Cables, Factory, Lamp, Fence, BareTree, PoliceCar, Mansion, SnowGround)
                        StreetScene.tsx (5-depth snowy khrushchyovka street), interiors.tsx (Corridor, BodyRoomTop,
+                       ReportCard, RevealWall, Tape, Sconce)
+src/characters/IFCar.tsx  IF's black fastback: FastbackSide (roll, lights, brake, rim) + FastbackFront (headlights); no badges
+src/locations/museum.tsx  MuseumFacade, GalleryHall (EMPTY_X), EmptyFrameWall, CutCanvas, GiltFrame, Art (portrait/landscape/
+                       still/sea), BackCorridor (DOOR_X, radiator), HiddenCanvas (unroll), NightLog
+Suspects 'guard'       older museum night guard (peaked cap, grey moustache) in the same bust rig (type NPCKind)
+fx.tsx Torch           flashlight pool + beam overlay (stepped hand-held jitter)
+scripts/make-sfx-car.py  V8 kit: car-idle, car-arrive, car-depart, car-ignition, car-door, keys
+src/cases/case002/     CASE 002 "The Missing Painting" (same structure as case001)
+src/characters/Thief.tsx  ThiefBody (side walk rig: mask, bag 0/1/2, cuffed, big shoes, hunch) + Officer (stand/yawn/walk, torch)
+Suspects 'thief'       young buzz-cut thief, black roll-neck + leather jacket, `smirk` prop (smug one-sided smile)
+IFBust outfit/hat/smile  outfit 'trench' (tan rain coat), hat (fedora), smile 0..1; IFBody hat (ProfileFedora)
+src/locations/heist.tsx  PlanWall (corkboard, strings, 12-month calendar, takeDown/receipt), JewelleryFront, WetStreet,
+                       StoreInterior, DisplayCase, Diamond, CCTVCam, LEDClock (7-seg), Stopwatch, PrepTable, BigShoe,
+                       FlatRoom, PaddedDoor (Soviet leatherette), Sedan (boxy 70s saloon), PayTerminal, BankCard, EvidenceBag/Receipt
+fx.tsx Rain / Glint    screen-space rain (3 depths + splashes), 4-point sparkle
+scripts/make-sfx-case003.py  bed-rain, knock, card-in, beep, diamonds, drop-plip, watch-click, ticks-fast, cuffs, rewind, servo, latch
+scripts/make-music-case003.py  IF's theme heist arrangement (Em, 126 BPM), timeline-scored, ducking baked from the VO envelope
+src/cases/case003/     CASE 003 "The Perfect Crime"
                        ReportCard, RevealWall, Tape, Sconce), pawnshop.tsx (CASE 004: NightSky w/ moon, PawnFacade,
                        PawnInterior, WallClock, Safe, BackWindowInside, AlleyBack, Prints (footprints), GlassShards,
                        SnowTop (top-down snow), ClaimForm, BreathFog)
@@ -196,7 +218,24 @@ On Arian's PC with the RTX 2070, re-encode with NVENC if wanted: `-c:v h264_nven
 - **Never open on black.** Frame 1 is already a strong, lit image (a character, motion, light), and the voice starts on frame 1. No silent or black pre-roll; the first second decides retention.
 - **Keep the voice clean, especially the first words.** No hissy or noisy effects under the voice (e.g. the lighter spark/flame burst sat on the first words of CASE 001). Opening effects are quiet and low (a soft click, a low rumble), never broadband hiss. Breathing and the other effects as in CASE 001 are approved.
 - **IF's signature car:** a black classic late-60s fastback (Mustang-style shape, no Ford logos/badges). It's his iconic car only. Use it whenever the story needs him driving or arriving (a good hook shot). Build it once into `src/characters/` the first time it's needed and reuse it.
-- CASE 001 was approved by Arian as-is (rendered video in `videos/`).
+- **Always end on a solved case:** even when the script's last line is open-ended (e.g. "knew exactly where to look next"), show the payoff visually (the hidden evidence found, the culprit exposed) and then slam the red **CASE CLOSED** stamp. Every video, no exceptions.
+- **Every video must feel new (Arian, after CASE 002).** Reuse the *tools* (rigs, style, caption system, sound kit), never the *ideas*. For each new script, invent fresh shots, emotions, staging, colours and reveals from that story itself. Before writing the shot list, check this list of beats already used and don't repeat them unless the story truly needs it (then do it in a clearly different way):
+  - paper/document insert with a red pencil circle (CASE 001 report card, CASE 002 night log)
+  - culprit reaction = sweat drops + freeze + heartbeat zoom pulse (001 assistant, 002 guard)
+  - hard red punch-in on the culprit with a big red accent word (001 "stabbed", 002 "thief")
+  - culprit's giant shadow on a red-lit wall (001, 002)
+  - IF extreme eye close-up with narrowing brow + deep hit (001, 002); over-the-shoulder rack focus IF → suspect (001, 002)
+  - blurred bokeh backgrounds behind every close-up; IF cigarette close-up near the end (001 hook, 002 ending)
+  - ending = exterior in falling snow, walking/driving away, then the stamp (001, 002)
+  - CASE 003 used: planning corkboard + calendar crossed off; binocular POV; CCTV tracking brackets + typed labels; top-down kit layout;
+    split screen (stopwatch / hands); diamonds pouring; rain erasing footprints; pull-out from a window to IF's car; knocks + rippling tea;
+    VHS rewind flashback (sepia); bank-card name highlight + APPROVED; bookend (same wall taken down); cuffed walk-out + diamond in a puddle
+  - **New places every case:** each case gets its own new locations (never the same street, room or museum again unless the story returns there), and they should look clearly different: other places, times of day, weather and palettes.
+  - **Show the journey sometimes:** e.g. IF leaving his flat or office, walking down the stairwell, starting the black fastback, driving through the city at night (interior dashboard shot, wipers, passing lamps, rain/snow on the windscreen), arriving at the scene. Mix up how a case opens: not always a clue close-up.
+  - **IF's outfit can change:** his face and identity stay the same (slicked hair, tired eyes, moustache, scar), but his clothes can vary with the story and weather: e.g. trench coat in the rain, hat and scarf in a blizzard, shirt sleeves + waistcoat + loosened tie at the office at night, a different tie or coat colour. Add these as outfit options on the IF rigs (IFBust / IFBody) the first time they're needed, and reuse them.
+  - **The script is fixed, the visuals are free:** never change Arian's words (voice-over and captions follow the script exactly). All the imagination goes into what we see: scenario, locations, staging, characters' looks and emotions, camera and colour.
+  Vary the emotions too: not every culprit is a nervous sweater (cold, smug, angry, crying, laughing, trying to run); IF can be amused, tired, angry, sad. Vary where scenes happen, the time of day, weather (rain, fog, clear frost, dawn), the palette and the kind of reveal (object, reflection, sound, photo, footprint, a flashback, a split screen…). In the shot list you show Arian, mark which ideas are new.
+- CASE 001, CASE 002 and CASE 003 were approved by Arian (rendered videos in `videos/`).
 
 ---
 
@@ -211,3 +250,27 @@ Also: the final MP4 goes to `videos/` via Git LFS (needs the `crime-motion-studi
 - **IF's car reference: `references/if_car.png`**: a black 1965–67 fastback (Mustang shape): long hood, sloping fastback roof with side louvres, chrome bumpers, window trim and rocker strip, wide grille with chrome surround, round amber-lit headlights, round fog/turn lights, dark five-spoke wheels, tri-bar red tail lights, thin antenna, weathered/dusty black paint with red rim light. Build the rig to match it (side, 3/4 front, rear, headlight close-ups), but draw no brand logos, emblems or lettering (blank grille centre, no pony badge).
 - **Car sound:** a classic V8 muscle-car sound (deep burbling idle, rumbling throttle, growl on acceleration, exhaust crackle, door thunk, ignition crank). Synthesise it into `public/sfx/` the first time it's needed.
 - Channel started Nov 2026; CASE 001 scheduled on YouTube.
+
+---
+
+## 17. Retention TRIAL (one video only: CASE 004; not a permanent rule yet)
+
+Arian agreed to try this **once** on CASE 004 (CASE 001–003 were made the normal way). If he likes it and it works on YouTube, it becomes a permanent rule
+(then move it into §15). Until he says so, **do not apply it to any other case**. After CASE 004, ask him for its numbers and compare with CASE 001–003. If it doesn't work, drop §17 and go back to the normal style.
+
+**Why (CASE 001 baseline, 2 days old):** "Stayed to watch" 37 % on ~580 feed impressions (Shorts typically 30–50 %, 60 %+ strong).
+That stat only measures the first 1–2 s. CASE 001 opened on a familiar fact ("A millionaire was found dead in his mansion"),
+a dark, low-contrast frame, mostly text; the strongest line ("He was stabbed in the back") came only at 19.5 s; length 43.5 s with a ~6 s outro.
+
+**Trial rules for CASE 004:**
+- The script is still Arian's (§15): the new hook must be in his script/voice-over. If he wants, write the script with the hook built in first.
+- **Hook = a question or challenge, mid-scene, voice on frame 1.** e.g. "Three suspects. One of them just confessed by accident. Can you catch it?"
+  Alternative: **cold-open on the twist line**, then "Nobody had told him that.", then rewind into the story.
+- **Frame 1 bright and readable:** close-up of a face or eyes, high contrast, motion, a red accent; lighter grain for the first 2 s;
+  at most one short on-screen line (≤ 5 words). No big text title over the hook shot.
+- **2–3 cuts in the first 3 s.**
+- **Hook on the crime, not on IF** (the audience doesn't know him yet).
+- **Length 28–35 s**, ending/"CASE CLOSED" outro only 1–2 s; the last line loops back into the first so people rewatch.
+- **Cover must not spoil the twist** (CASE 001's cover shows "stabbed").
+- Get the **audience retention graph** (Overview tab) for CASE 001–004: a sharp drop in the first 3 s means the hook is the problem;
+  a drop around 20–30 s means the middle is the problem.

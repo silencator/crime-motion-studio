@@ -13,7 +13,7 @@ import {IFC as C} from './palette';
  *  crouch 0..1 blends into a low crouch (front foot planted, back knee down, torso leaning, head down)
  *  torch  0..1 flashlight in the front hand, aimed forward-down (aim = extra degrees); beam drawn when torch > 0
  */
-export type IFBodyProps = {phase?: number; walk?: number; wind?: number; t?: number; rim?: string; rimOp?: number; dark?: number; cig?: boolean; crouch?: number; torch?: number; aim?: number; beam?: number};
+export type IFBodyProps = {phase?: number; walk?: number; wind?: number; t?: number; rim?: string; rimOp?: number; dark?: number; cig?: boolean; hat?: boolean; crouch?: number; torch?: number; aim?: number; beam?: number};
 
 type P = [number, number];
 const rot = (v: P, deg: number): P => {
@@ -47,7 +47,7 @@ const legFK = (hip: P, thigh: number, knee: number, footPitch: number) => {
   return {k, an, foot: -thigh + knee + footPitch};
 };
 
-export const IFBody: React.FC<IFBodyProps> = ({phase = 0, walk = 1, wind = 0.4, t = 0, rim = '#ffb45a', rimOp = 0.7, dark = 0, cig = false, crouch = 0, torch = 0, aim = 0, beam = 1}) => {
+export const IFBody: React.FC<IFBodyProps> = ({phase = 0, walk = 1, wind = 0.4, t = 0, rim = '#ffb45a', rimOp = 0.7, dark = 0, cig = false, hat = false, crouch = 0, torch = 0, aim = 0, beam = 1}) => {
   const cr = crouch;
   const mix = (a: number, b: number) => a + (b - a) * cr;
   const s = Math.sin(phase);
@@ -169,6 +169,7 @@ export const IFBody: React.FC<IFBodyProps> = ({phase = 0, walk = 1, wind = 0.4, 
         {/* HEAD */}
         <g transform={`translate(18 ${-948 + Math.abs(s) * 3 * W}) scale(0.62) rotate(${cr * 22 + torch * 6} 0 120)`}>
           <ProfileHead rim={rim} rimOp={rimOp} cig={cig} />
+          {hat && <ProfileFedora rim={rim} rimOp={rimOp} />}
         </g>
         {/* raised collar */}
         <Ink d="M-70 -812 C-86 -860 -78 -905 -60 -930 L-10 -880 L30 -870 L66 -905 C76 -870 74 -840 60 -818 C20 -800 -30 -800 -70 -812 Z" fill={C.coat} heavy={2} />
@@ -229,5 +230,15 @@ export const ProfileHead: React.FC<{rim: string; rimOp: number; cig?: boolean}> 
         <circle cx={62} cy={0} r={22} fill="url(#warmGlow)" />
       </g>
     )}
+  </g>
+);
+
+/** Fedora for the profile head (CASE 003 rain outfit). */
+export const ProfileFedora: React.FC<{rim: string; rimOp: number}> = ({rim, rimOp}) => (
+  <g transform="rotate(-5 0 -100)">
+    <Ink d="M-150 -86 C-100 -112 80 -116 170 -92 C186 -86 180 -74 164 -76 C80 -94 -90 -90 -146 -72 C-162 -68 -166 -80 -150 -86 Z" fill="#1c1a1c" heavy={2} />
+    <Ink d="M-96 -96 C-104 -150 -90 -200 -40 -214 C0 -206 30 -212 60 -216 C96 -204 112 -160 104 -100 C40 -110 -40 -110 -96 -96 Z" fill="#232126" hatch="hatch" hatchOp={0.25} />
+    <path d="M-98 -104 C-40 -118 40 -118 104 -108 L106 -130 C40 -140 -40 -140 -100 -126 Z" fill="#4a1418" stroke={C.ink} strokeWidth={2.4} />
+    <path d="M-150 -86 C-100 -112 80 -116 170 -92" fill="none" stroke={rim} strokeWidth={4} opacity={rimOp * 0.8} />
   </g>
 );
