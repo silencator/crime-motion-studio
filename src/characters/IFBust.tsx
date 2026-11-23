@@ -27,6 +27,18 @@ export type IFBustProps = {
   cig?: boolean;
   cigGlow?: number;
   breathe?: number; // shoulder rise px
+  /** outfit: 'coat' = charcoal overcoat (default), 'trench' = tan rain trench coat (CASE 003) */
+  outfit?: 'coat' | 'trench';
+  /** fedora on (CASE 003 rain outfit) */
+  hat?: boolean;
+  /** 0..1 faint dry half-smile (amused IF) */
+  smile?: number;
+};
+
+/** Outfit palettes for the coat layer. */
+const OUTFIT = {
+  coat: {coat: C.coat, coatShade: C.coatShade},
+  trench: {coat: '#8d7556', coatShade: '#5c4a35'},
 };
 
 export const IFBust: React.FC<IFBustProps> = ({
@@ -43,29 +55,35 @@ export const IFBust: React.FC<IFBustProps> = ({
   cig = false,
   cigGlow = 0.6,
   breathe = 0,
+  outfit = 'coat',
+  hat = false,
+  smile = 0,
 }) => {
   return (
     <g transform={flip ? 'scale(-1 1)' : undefined}>
-      <Torso breathe={breathe} rim={rim} rimOp={rimOp} />
+      <Torso breathe={breathe} rim={rim} rimOp={rimOp} outfit={outfit} />
       <g transform={`rotate(${tilt} 0 230)`}>
-        <Head mouth={mouth} blink={blink} lookX={lookX} lookY={lookY} brow={brow} rim={rim} rimOp={rimOp} shade={shade} cig={cig} cigGlow={cigGlow} />
+        <Head mouth={mouth} blink={blink} lookX={lookX} lookY={lookY} brow={brow} rim={rim} rimOp={rimOp} shade={shade} cig={cig} cigGlow={cigGlow} smile={smile} />
+        {hat && <Fedora rim={rim} rimOp={rimOp} />}
       </g>
     </g>
   );
 };
 
 /* ---------------------------------------------------------------- */
-const Torso: React.FC<{breathe: number; rim: string; rimOp: number}> = ({breathe, rim, rimOp}) => (
+const Torso: React.FC<{breathe: number; rim: string; rimOp: number; outfit: 'coat' | 'trench'}> = ({breathe, rim, rimOp, outfit}) => {
+  const O = OUTFIT[outfit];
+  return (
   <g transform={`translate(0 ${-breathe - 105})`}>
     {/* coat body */}
     <Ink
       d="M-470 1500 C-470 760 -450 600 -330 520 C-260 470 -190 440 -150 420 L150 400 C230 430 330 470 420 540 C510 620 520 780 520 1500 Z"
-      fill={C.coat}
+      fill={O.coat}
       hatch="hatch"
       hatchOp={0.18}
     />
     {/* shadow side of coat (screen right = away from key light) */}
-    <path d="M160 410 C260 450 360 500 430 560 C500 640 515 790 520 1500 L260 1500 C250 800 230 600 160 410 Z" fill={C.coatShade} opacity={0.75} />
+    <path d="M160 410 C260 450 360 500 430 560 C500 640 515 790 520 1500 L260 1500 C250 800 230 600 160 410 Z" fill={O.coatShade} opacity={0.75} />
     <path d="M160 410 C260 450 360 500 430 560 C500 640 515 790 520 1500 L260 1500 C250 800 230 600 160 410 Z" fill="url(#hatch)" opacity={0.35} />
     {/* shirt + vest V */}
     <Ink d="M-150 420 L-60 400 L70 395 L150 405 L120 620 L40 1500 L-90 1500 L-150 640 Z" fill={C.vest} heavy={0} hatch="tweed" hatchOp={0.9} />
@@ -79,21 +97,38 @@ const Torso: React.FC<{breathe: number; rim: string; rimOp: number}> = ({breathe
     <Ink d="M-112 398 L-150 330 L-60 360 L-34 412 Z" fill={C.shirt} heavy={1} />
     <Ink d="M118 392 L140 320 L60 352 L26 410 Z" fill={C.shirtShade} heavy={1} />
     {/* raised coat collar + lapels */}
-    <Ink d="M-160 430 C-210 380 -235 300 -228 220 L-150 250 C-140 320 -110 380 -60 410 L-120 520 C-140 600 -150 700 -160 1500 L-300 1500 C-280 760 -240 560 -160 430 Z" fill={C.coat} hatch="hatch" hatchOp={0.15} />
-    <Ink d="M150 410 C210 360 240 280 236 200 L150 236 C145 310 120 370 80 405 L130 520 C150 610 165 720 175 1500 L300 1500 C290 760 250 560 150 410 Z" fill={C.coatShade} hatch="hatch" hatchOp={0.4} />
+    <Ink d="M-160 430 C-210 380 -235 300 -228 220 L-150 250 C-140 320 -110 380 -60 410 L-120 520 C-140 600 -150 700 -160 1500 L-300 1500 C-280 760 -240 560 -160 430 Z" fill={O.coat} hatch="hatch" hatchOp={0.15} />
+    <Ink d="M150 410 C210 360 240 280 236 200 L150 236 C145 310 120 370 80 405 L130 520 C150 610 165 720 175 1500 L300 1500 C290 760 250 560 150 410 Z" fill={O.coatShade} hatch="hatch" hatchOp={0.4} />
     <Line d="M-228 220 C-235 300 -210 380 -160 430" w={4} c={rim} op={rimOp * 0.6} />
     {/* lapel notch lines + coat button */}
     <Line d="M-120 520 L-200 560 M130 520 L205 555" w={3} />
-    <circle cx={-205} cy={760} r={11} fill={C.coatShade} stroke={C.ink} strokeWidth={3} />
+    <circle cx={-205} cy={760} r={11} fill={O.coatShade} stroke={C.ink} strokeWidth={3} />
     {/* shoulder holster strap peeking */}
     <path d="M70 560 L110 1500" stroke="#3b2418" strokeWidth={14} opacity={0.6} />
     {/* rim light on the shoulder */}
     <Line d="M-470 900 C-470 760 -450 610 -330 520" w={5} c={rim} op={rimOp * 0.55} />
+    {outfit === 'trench' && (
+      <g>
+        {/* trench details: storm flap, epaulette, double-breasted buttons, rain dark spots */}
+        <Ink d="M-460 640 L-300 560 L-280 600 L-440 690 Z" fill={O.coatShade} heavy={0} />
+        <path d="M-330 620 C-300 700 -280 800 -290 900" stroke="#0b0706" strokeWidth={3} fill="none" opacity={0.6} />
+        {[760, 900].map((y) => (
+          <g key={y}>
+            <circle cx={-250} cy={y} r={13} fill="#3a2c1c" stroke="#0b0706" strokeWidth={3} />
+            <circle cx={-110} cy={y + 10} r={13} fill="#3a2c1c" stroke="#0b0706" strokeWidth={3} />
+          </g>
+        ))}
+        {Array.from({length: 22}).map((_, i) => (
+          <circle key={i} cx={-440 + ((i * 197) % 900)} cy={600 + ((i * 131) % 820)} r={4 + (i % 3) * 2} fill="#3b2f20" opacity={0.35} />
+        ))}
+      </g>
+    )}
   </g>
-);
+  );
+};
 
 /* ---------------------------------------------------------------- */
-const Head: React.FC<Required<Pick<IFBustProps, 'mouth' | 'blink' | 'lookX' | 'lookY' | 'brow' | 'rim' | 'rimOp' | 'shade' | 'cig' | 'cigGlow'>>> = ({
+const Head: React.FC<Required<Pick<IFBustProps, 'mouth' | 'blink' | 'lookX' | 'lookY' | 'brow' | 'rim' | 'rimOp' | 'shade' | 'cig' | 'cigGlow' | 'smile'>>> = ({
   mouth,
   blink,
   lookX,
@@ -104,6 +139,7 @@ const Head: React.FC<Required<Pick<IFBustProps, 'mouth' | 'blink' | 'lookX' | 'l
   shade,
   cig,
   cigGlow,
+  smile,
 }) => {
   const FACE =
     'M-138 -185 C-152 -140 -168 -100 -166 -70 C-162 -50 -150 -40 -152 -25 C-170 5 -196 30 -210 48 C-205 60 -188 66 -168 68 C-162 78 -166 88 -166 98 C-162 112 -160 124 -162 138 C-160 150 -150 158 -152 175 C-152 198 -134 216 -108 224 C-60 232 -4 222 46 200 C80 182 100 150 108 112 L114 40 C125 -20 135 -80 130 -150 C110 -230 -80 -250 -150 -175 Z';
@@ -165,7 +201,7 @@ const Head: React.FC<Required<Pick<IFBustProps, 'mouth' | 'blink' | 'lookX' | 'l
       {/* forehead lines */}
       <Line d="M-120 -140 C-80 -150 -30 -150 10 -138" w={1.6} op={0.3} />
       {/* MOUTH */}
-      <Mouth m={m} lo={lo} mw={mw} />
+      <Mouth m={m} lo={lo} mw={mw} smile={smile} />
       {/* MOUSTACHE: thin, slightly drooping */}
       <Ink d="M-180 86 C-164 74 -140 72 -122 79 C-102 74 -80 80 -58 98 C-66 102 -80 101 -94 97 C-110 92 -124 92 -134 94 C-152 97 -168 99 -182 95 Z" fill={C.hair} w={2} heavy={0} />
       {/* chin cleft + jaw definition */}
@@ -249,13 +285,15 @@ const Eye: React.FC<{cx: number; cy: number; w: number; h: number; lx: number; l
   );
 };
 
-const Mouth: React.FC<{m: number; lo: number; mw: number}> = ({m, lo, mw}) => {
+const Mouth: React.FC<{m: number; lo: number; mw: number; smile: number}> = ({m, lo, mw, smile}) => {
   const xl = -164;
   const xr = -84 * mw - 8;
   if (m < 0.06) {
+    const sm = smile * 12;
     return (
       <g>
-        <Line d={`M${xl} 110 C${xl + 30} 106 ${xr - 20} 108 ${xr} 116`} w={3.2} />
+        <Line d={`M${xl} ${110 - sm * 0.3} C${xl + 30} ${106 + sm * 0.4} ${xr - 20} ${108 + sm * 0.2} ${xr} ${116 - sm}`} w={3.2} />
+        {smile > 0.2 && <Line d={`M${xr - 2} ${112 - sm} C${xr + 6} ${108 - sm} ${xr + 10} ${102 - sm} ${xr + 10} ${96 - sm}`} w={2} op={0.6 * smile} />}
         <path d={`M${xl + 8} 116 C${xl + 30} 128 ${xr - 20} 128 ${xr - 6} 120`} fill="none" stroke={C.lip} strokeWidth={5} opacity={0.6} />
       </g>
     );
@@ -275,5 +313,24 @@ const Cigarette: React.FC<{glow: number}> = ({glow}) => (
     <rect x={-120} y={-7} width={14} height={14} rx={3} fill="#5a3a2a" />
     <circle cx={-122} cy={0} r={9} fill="#ff7a2a" opacity={0.6 + glow * 0.4} />
     <circle cx={-122} cy={0} r={30} fill="url(#warmGlow)" opacity={glow} />
+  </g>
+);
+
+/** Dark felt fedora (CASE 003 rain outfit). Sits on the slicked hair, brim dipping toward the face side. */
+const Fedora: React.FC<{rim: string; rimOp: number}> = ({rim, rimOp}) => (
+  <g transform="rotate(-6 0 -230)">
+    {/* back brim */}
+    <Ink d="M-250 -222 C-200 -262 120 -282 250 -236 C262 -226 250 -214 232 -214 C90 -246 -150 -232 -238 -206 C-256 -204 -262 -212 -250 -222 Z" fill="#1c1a1c" heavy={2} />
+    {/* crown with centre dent and pinch */}
+    <Ink d="M-168 -236 C-176 -300 -160 -380 -110 -410 C-60 -394 -20 -398 20 -414 C80 -420 150 -390 170 -330 C182 -296 178 -262 172 -240 C80 -258 -80 -256 -168 -236 Z" fill="#232126" hatch="hatch" hatchOp={0.25} />
+    <path d="M-60 -400 C-40 -360 -10 -340 30 -332" stroke="#0b0706" strokeWidth={3.5} fill="none" opacity={0.7} />
+    <path d="M60 -410 C110 -380 150 -330 160 -270 L172 -240 C150 -300 120 -350 60 -410 Z" fill="#0f0e10" opacity={0.6} />
+    {/* band */}
+    <path d="M-170 -246 C-80 -268 80 -268 172 -250 L174 -282 C80 -298 -80 -298 -172 -276 Z" fill="#4a1418" stroke="#0b0706" strokeWidth={3} />
+    {/* front brim (over the face side) */}
+    <Ink d="M-290 -196 C-250 -236 -120 -250 0 -246 C-60 -228 -180 -210 -240 -186 C-262 -178 -296 -182 -290 -196 Z" fill="#18161a" heavy={2} />
+    {/* rain on the brim edge + rim light */}
+    <path d="M-290 -196 C-250 -236 -120 -250 0 -246" fill="none" stroke={rim} strokeWidth={4} opacity={rimOp * 0.8} />
+    <path d="M-168 -236 C-176 -300 -160 -380 -110 -410" fill="none" stroke={rim} strokeWidth={3.5} opacity={rimOp * 0.6} />
   </g>
 );

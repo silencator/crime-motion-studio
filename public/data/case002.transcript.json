@@ -1,0 +1,466 @@
+[
+ {
+  "start": 0,
+  "end": 3.519,
+  "text": "A PRICELESS PAINTING DISAPPEARED FROM A MUSEUM OVERNIGHT",
+  "words": [
+   [
+    "A",
+    0.0
+   ],
+   [
+    "PRICELESS",
+    0.16
+   ],
+   [
+    "PAINTING",
+    0.76
+   ],
+   [
+    "DISAPPEARED",
+    1.28
+   ],
+   [
+    "FROM",
+    1.92
+   ],
+   [
+    "A",
+    2.08
+   ],
+   [
+    "MUSEUM",
+    2.24
+   ],
+   [
+    "OVERNIGHT",
+    2.92
+   ]
+  ]
+ },
+ {
+  "start": 4.202,
+  "end": 6.854,
+  "text": "THE NIGHT GUARD INSISTED NOBODY HAD ENTERED THE BUILDING",
+  "words": [
+   [
+    "THE",
+    4.1
+   ],
+   [
+    "NIGHT",
+    4.22
+   ],
+   [
+    "GUARD",
+    4.5
+   ],
+   [
+    "INSISTED",
+    4.78
+   ],
+   [
+    "NOBODY",
+    5.38
+   ],
+   [
+    "HAD",
+    5.94
+   ],
+   [
+    "ENTERED",
+    6.14
+   ],
+   [
+    "THE",
+    6.42
+   ],
+   [
+    "BUILDING",
+    6.58
+   ]
+  ]
+ },
+ {
+  "start": 7.534,
+  "end": 9.199,
+  "text": "DETECTIVE ASKED ONE QUESTION",
+  "words": [
+   [
+    "DETECTIVE",
+    7.43
+   ],
+   [
+    "ASKED",
+    8.07
+   ],
+   [
+    "ONE",
+    8.39
+   ],
+   [
+    "QUESTION",
+    8.71
+   ]
+  ]
+ },
+ {
+  "start": 9.973,
+  "end": 11.635,
+  "text": "DID YOU NOTICE ANYTHING UNUSUAL",
+  "words": [
+   [
+    "DID",
+    9.87
+   ],
+   [
+    "YOU",
+    10.03
+   ],
+   [
+    "NOTICE",
+    10.19
+   ],
+   [
+    "ANYTHING",
+    10.67
+   ],
+   [
+    "UNUSUAL",
+    11.03
+   ]
+  ]
+ },
+ {
+  "start": 12.33,
+  "end": 12.82,
+  "text": "NOTHING",
+  "words": [
+   [
+    "NOTHING",
+    12.23
+   ]
+  ]
+ },
+ {
+  "start": 13.357,
+  "end": 15.848,
+  "text": "EXCEPT THE THIEF MUST HAVE USED THE BACK ENTRANCE",
+  "words": [
+   [
+    "EXCEPT",
+    13.26
+   ],
+   [
+    "THE",
+    13.66
+   ],
+   [
+    "THIEF",
+    13.9
+   ],
+   [
+    "MUST",
+    14.3
+   ],
+   [
+    "HAVE",
+    14.5
+   ],
+   [
+    "USED",
+    14.66
+   ],
+   [
+    "THE",
+    14.94
+   ],
+   [
+    "BACK",
+    15.1
+   ],
+   [
+    "ENTRANCE",
+    15.34
+   ]
+  ]
+ },
+ {
+  "start": 16.331,
+  "end": 17.283,
+  "text": "DETECTIVE STOPPED",
+  "words": [
+   [
+    "DETECTIVE",
+    16.23
+   ],
+   [
+    "STOPPED",
+    16.87
+   ]
+  ]
+ },
+ {
+  "start": 17.884,
+  "end": 19.14,
+  "text": "WHY THE BACK ENTRANCE",
+  "words": [
+   [
+    "WHY",
+    17.78
+   ],
+   [
+    "THE",
+    18.02
+   ],
+   [
+    "BACK",
+    18.26
+   ],
+   [
+    "ENTRANCE",
+    18.58
+   ]
+  ]
+ },
+ {
+  "start": 19.642,
+  "end": 22.004,
+  "text": "WE HAVEN'T TOLD ANY ONE HOW THE PAINTING DISAPPEARED",
+  "words": [
+   [
+    "WE",
+    19.54
+   ],
+   [
+    "HAVEN'T",
+    19.66
+   ],
+   [
+    "TOLD",
+    19.98
+   ],
+   [
+    "ANY",
+    20.18
+   ],
+   [
+    "ONE",
+    20.42
+   ],
+   [
+    "HOW",
+    20.62
+   ],
+   [
+    "THE",
+    20.78
+   ],
+   [
+    "PAINTING",
+    20.9
+   ],
+   [
+    "DISAPPEARED",
+    21.34
+   ]
+  ]
+ },
+ {
+  "start": 22.496,
+  "end": 23.697,
+  "text": "THE GUARD WENT SILENT",
+  "words": [
+   [
+    "THE",
+    22.4
+   ],
+   [
+    "GUARD",
+    22.56
+   ],
+   [
+    "WENT",
+    22.92
+   ],
+   [
+    "SILENT",
+    23.2
+   ]
+  ]
+ },
+ {
+  "start": 24.389,
+  "end": 26.098,
+  "text": "ONLY THE THIEF COULD KNOW THAT",
+  "words": [
+   [
+    "ONLY",
+    24.29
+   ],
+   [
+    "THE",
+    24.61
+   ],
+   [
+    "THIEF",
+    24.85
+   ],
+   [
+    "COULD",
+    25.33
+   ],
+   [
+    "KNOW",
+    25.57
+   ],
+   [
+    "THAT",
+    25.89
+   ]
+  ]
+ },
+ {
+  "start": 26.737,
+  "end": 28.972,
+  "text": "BECAUSE THE PAINTING NEVER LEFT THE BUILDING",
+  "words": [
+   [
+    "BECAUSE",
+    26.64
+   ],
+   [
+    "THE",
+    26.92
+   ],
+   [
+    "PAINTING",
+    27.12
+   ],
+   [
+    "NEVER",
+    27.76
+   ],
+   [
+    "LEFT",
+    28.16
+   ],
+   [
+    "THE",
+    28.44
+   ],
+   [
+    "BUILDING",
+    28.64
+   ]
+  ]
+ },
+ {
+  "start": 29.717,
+  "end": 31.75,
+  "text": "HE'D HIDDEN IT BY THE BACK DOOR HIMSELF",
+  "words": [
+   [
+    "HE'D",
+    29.62
+   ],
+   [
+    "HIDDEN",
+    29.86
+   ],
+   [
+    "IT",
+    30.18
+   ],
+   [
+    "BY",
+    30.34
+   ],
+   [
+    "THE",
+    30.5
+   ],
+   [
+    "BACK",
+    30.62
+   ],
+   [
+    "DOOR",
+    30.9
+   ],
+   [
+    "HIMSELF",
+    31.26
+   ]
+  ]
+ },
+ {
+  "start": 32.461,
+  "end": 33.99,
+  "text": "HE WASN'T PROTECTING THE MUSEUM",
+  "words": [
+   [
+    "HE",
+    32.36
+   ],
+   [
+    "WASN'T",
+    32.48
+   ],
+   [
+    "PROTECTING",
+    32.8
+   ],
+   [
+    "THE",
+    33.28
+   ],
+   [
+    "MUSEUM",
+    33.4
+   ]
+  ]
+ },
+ {
+  "start": 34.63,
+  "end": 36.182,
+  "text": "HE WAS PROTECTING HIS SECRET",
+  "words": [
+   [
+    "HE",
+    34.53
+   ],
+   [
+    "WAS",
+    34.65
+   ],
+   [
+    "PROTECTING",
+    34.85
+   ],
+   [
+    "HIS",
+    35.49
+   ],
+   [
+    "SECRET",
+    35.73
+   ]
+  ]
+ },
+ {
+  "start": 36.809,
+  "end": 37.878,
+  "text": "CASE CLOSED",
+  "words": [
+   [
+    "CASE",
+    36.71
+   ],
+   [
+    "CLOSED",
+    37.11
+   ]
+  ]
+ }
+]
