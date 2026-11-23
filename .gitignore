@@ -6,3 +6,4 @@ models/
 .env
 *.mov
 *.webm
+public/music/*.wav
