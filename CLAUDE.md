@@ -161,14 +161,17 @@ src/kit/captions.tsx   Film subtitles (yellow, Inter Bold, sentence case) + Acce
                        CaseTag ("● CASE 00X", top-left) + CaseClosed stamp
 src/kit/fonts.ts       Inter, Playfair Display Italic, Special Elite (typewriter), Anton (stamp); all OFL, in public/fonts
 src/characters/        IFBust (close-up rig: mouth, blink, look, brow, tilt, rim, flip, cig)
-                       IFBody (full-body side rig: walk cycle FK, coat follows legs, wind, cig) + ProfileHead
-                       Suspects (bust rig: wife / driver / assistant; mouth, blink, look, fear, sweat)
+                       IFBody (full-body side rig: walk cycle FK, coat follows legs, wind, cig, crouch, torch/flashlight beam) + ProfileHead
+                       Suspects (bust rig: wife / driver / assistant / pawnbroker; mouth, blink, look, fear, sweat)
 src/locations/         soviet.tsx (RedSky, Block, Pylon, Cables, Factory, Lamp, Fence, BareTree, PoliceCar, Mansion, SnowGround)
                        StreetScene.tsx (5-depth snowy khrushchyovka street), interiors.tsx (Corridor, BodyRoomTop,
-                       ReportCard, RevealWall, Tape, Sconce)
+                       ReportCard, RevealWall, Tape, Sconce), pawnshop.tsx (CASE 004: NightSky w/ moon, PawnFacade,
+                       PawnInterior, WallClock, Safe, BackWindowInside, AlleyBack, Prints (footprints), GlassShards,
+                       SnowTop (top-down snow), ClaimForm, BreathFog)
 src/cases/case001/     timeline.ts (shot times, subtitles, accent titles), shots.tsx (one component per shot), Case001.tsx (edit + sound mix)
 public/sfx/            synthesised sound kit (scripts/make-sfx.py): wind/drone/hum/room beds, siren, lighter, inhale/exhale,
-                       steps (snow/wood), door creak, paper, whooshes, hit-deep, riser, tick/tock, heartbeat, stamp, sting, flash
+                       steps (snow/wood), door creak, paper, whooshes, hit-deep, riser, tick/tock, heartbeat, stamp, sting, flash,
+                       glass-break, glass-tinkle, safe-clank, flash-click (CASE 004)
 public/tex/            grain frames + paper texture (scripts/make-textures.py)
 public/img/            painted panels cropped from the reference sheets (if_lighter.jpg, if_desk.jpg)
 ```
