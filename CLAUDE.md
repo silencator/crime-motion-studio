@@ -208,3 +208,26 @@ Also: the final MP4 goes to `videos/` via Git LFS (needs the `crime-motion-studi
 - **IF's car reference: `references/if_car.png`**: a black 1965–67 fastback (Mustang shape): long hood, sloping fastback roof with side louvres, chrome bumpers, window trim and rocker strip, wide grille with chrome surround, round amber-lit headlights, round fog/turn lights, dark five-spoke wheels, tri-bar red tail lights, thin antenna, weathered/dusty black paint with red rim light. Build the rig to match it (side, 3/4 front, rear, headlight close-ups), but draw no brand logos, emblems or lettering (blank grille centre, no pony badge).
 - **Car sound:** a classic V8 muscle-car sound (deep burbling idle, rumbling throttle, growl on acceleration, exhaust crackle, door thunk, ignition crank). Synthesise it into `public/sfx/` the first time it's needed.
 - Channel started Nov 2026; CASE 001 scheduled on YouTube.
+
+---
+
+## 17. Retention TRIAL (one video only: CASE 002; not a permanent rule yet)
+
+Arian agreed to try this **once** on CASE 002. If he likes it and it works on YouTube, it becomes a permanent rule
+(then move it into §15). Until he says so, **do not apply it to any other case**. After CASE 002, ask him for its numbers and compare.
+
+**Why (CASE 001 baseline, 2 days old):** "Stayed to watch" 37 % on ~580 feed impressions (Shorts typically 30–50 %, 60 %+ strong).
+That stat only measures the first 1–2 s. CASE 001 opened on a familiar fact ("A millionaire was found dead in his mansion"),
+a dark, low-contrast frame, mostly text; the strongest line ("He was stabbed in the back") came only at 19.5 s; length 43.5 s with a ~6 s outro.
+
+**Trial rules for CASE 002:**
+- **Hook = a question or challenge, mid-scene, voice on frame 1.** e.g. "Three suspects. One of them just confessed by accident. Can you catch it?"
+  Alternative: **cold-open on the twist line**, then "Nobody had told him that.", then rewind into the story.
+- **Frame 1 bright and readable:** close-up of a face or eyes, high contrast, motion, a red accent; lighter grain for the first 2 s;
+  at most one short on-screen line (≤ 5 words). No big text title over the hook shot.
+- **2–3 cuts in the first 3 s.**
+- **Hook on the crime, not on IF** (the audience doesn't know him yet).
+- **Length 28–35 s**, ending/"CASE CLOSED" outro only 1–2 s; the last line loops back into the first so people rewatch.
+- **Cover must not spoil the twist** (CASE 001's cover shows "stabbed").
+- Get the **audience retention graph** (Overview tab) for CASE 001 and CASE 002: a sharp drop in the first 3 s means the hook is the problem;
+  a drop around 20–30 s means the middle is the problem.
