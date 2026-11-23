@@ -8,7 +8,7 @@ import {Ink, Line} from '../kit/fx';
  */
 export type SuspectKind = 'wife' | 'driver' | 'assistant';
 /** Every bust-rig character (CASE 001 suspects + later NPCs). */
-export type NPCKind = SuspectKind | 'guard';
+export type NPCKind = SuspectKind | 'guard' | 'thief';
 export type SuspectProps = {
   kind: NPCKind;
   mouth?: number;
@@ -20,6 +20,7 @@ export type SuspectProps = {
   rimOp?: number;
   sweat?: number;
   turn?: number; // −1..1 horizontal feature shift (head turn)
+  smirk?: number; // 0..1 one-sided smug smile (CASE 003 thief)
 };
 
 const INK = '#0b0706';
@@ -28,9 +29,10 @@ const LOOK: Record<NPCKind, {skin: string; shade: string; hair: string; suit: st
   driver: {skin: '#B47A5A', shade: '#80513A', hair: '#2a2019', suit: '#3b4034', suitShade: '#252920', jaw: 1.12, faceW: 132},
   assistant: {skin: '#CDAE96', shade: '#987964', hair: '#0f0d0c', suit: '#4a4a4a', suitShade: '#2c2c2c', jaw: 0.78, faceW: 104},
   guard: {skin: '#C48C6C', shade: '#8E5C46', hair: '#7a746c', suit: '#46505a', suitShade: '#2b3239', jaw: 1.2, faceW: 132},
+  thief: {skin: '#D0A184', shade: '#9A6C55', hair: '#1a1411', suit: '#16161a', suitShade: '#0c0c0e', jaw: 0.95, faceW: 110},
 };
 
-export const Suspect: React.FC<SuspectProps> = ({kind, mouth = 0, blink = 0, lookX = 0, lookY = 0, fear = 0, rim = '#ffb45a', rimOp = 0.6, sweat = 0, turn = 0}) => {
+export const Suspect: React.FC<SuspectProps> = ({kind, mouth = 0, blink = 0, lookX = 0, lookY = 0, fear = 0, rim = '#ffb45a', rimOp = 0.6, sweat = 0, turn = 0, smirk = 0}) => {
   const L = LOOK[kind];
   const fw = L.faceW;
   const jw = fw * L.jaw;
@@ -112,6 +114,20 @@ export const Suspect: React.FC<SuspectProps> = ({kind, mouth = 0, blink = 0, loo
           <path d={`M${-jw * 0.5} 250 C-40 310 40 310 ${jw * 0.5} 250 L${jw * 0.5} 320 L${-jw * 0.5} 320 Z`} fill={L.shade} />
         </g>
       )}
+      {kind === 'thief' && (
+        <g>
+          {/* black roll-neck sweater + dark leather jacket */}
+          <Ink d="M-380 2300 C-380 700 -350 440 -190 350 L190 350 C350 440 380 700 380 2300 Z" fill="#221e1c" hatch="hatch" hatchOp={0.28} />
+          <path d="M120 370 C290 440 370 620 380 2300 L220 2300 C210 900 190 560 120 370 Z" fill="#0d0b0a" opacity={0.75} />
+          <Ink d="M-170 352 L-70 330 L0 470 L-90 1100 L-230 1140 Z" fill="#2c2724" heavy={0} />
+          <Ink d="M170 352 L70 330 L0 470 L90 1100 L230 1140 Z" fill="#191614" heavy={0} />
+          <Ink d="M-120 250 C-120 330 -100 380 0 386 C100 380 120 330 120 250 L110 470 C60 500 -60 500 -110 470 Z" fill={L.suit} heavy={0} />
+          {[300, 340, 380, 420].map((y) => (
+            <path key={y} d={`M-112 ${y} C-40 ${y + 14} 40 ${y + 14} 112 ${y}`} stroke="#000" strokeWidth={3} fill="none" opacity={0.6} />
+          ))}
+          <path d="M-60 1000 L-40 1300 M60 1000 L40 1300" stroke="#000" strokeWidth={4} opacity={0.5} />
+        </g>
+      )}
       {/* neck */}
       <path d={`M${-jw * 0.45} 120 L${-jw * 0.5} 320 L${jw * 0.5} 320 L${jw * 0.45} 120 Z`} fill={L.shade} />
       {/* ears */}
@@ -128,7 +144,7 @@ export const Suspect: React.FC<SuspectProps> = ({kind, mouth = 0, blink = 0, loo
         <path d={`M2 -20 C8 20 18 46 20 62 L-4 66 Z`} fill={L.shade} opacity={0.5} />
         {/* eyes */}
         {[-1, 1].map((sx) => (
-          <SEye key={sx} cx={sx * ex} cy={eyeY} w={eyeW} lx={lookX * 8} ly={lookY * 5} blink={blink} fear={fear} lids={kind === 'wife' ? 0.35 : kind === 'driver' ? 0.42 : kind === 'guard' ? 0.46 : 0.28} lash={kind === 'wife'} />
+          <SEye key={sx} cx={sx * ex} cy={eyeY} w={eyeW} lx={lookX * 8} ly={lookY * 5} blink={blink} fear={fear} lids={kind === 'wife' ? 0.35 : kind === 'driver' ? 0.42 : kind === 'guard' ? 0.46 : kind === 'thief' ? 0.4 + smirk * 0.12 : 0.28} lash={kind === 'wife'} />
         ))}
         {/* brows */}
         {[-1, 1].map((sx) => (
@@ -136,13 +152,13 @@ export const Suspect: React.FC<SuspectProps> = ({kind, mouth = 0, blink = 0, loo
             key={sx}
             d={`M${sx * (ex - 30)} ${eyeY - 34 + brow + (kind === 'driver' ? 4 : 0)} C${sx * ex} ${eyeY - 50 + brow * 1.4} ${sx * (ex + 20)} ${eyeY - 46 + brow} ${sx * (ex + 34)} ${eyeY - 34 + brow * 0.4}`}
             stroke={kind === 'guard' ? '#5f5a54' : L.hair}
-            strokeWidth={kind === 'driver' || kind === 'guard' ? 14 : kind === 'wife' ? 6 : 8}
+            strokeWidth={kind === 'driver' || kind === 'guard' ? 14 : kind === 'wife' ? 6 : kind === 'thief' ? 9 : 8}
             fill="none"
             strokeLinecap="round"
           />
         ))}
         {/* mouth */}
-        <SMouth m={mouth} kind={kind} />
+        <SMouth m={mouth} kind={kind} smirk={smirk} />
         {kind === 'guard' && (
           <g>
             {/* tired older face: bags, nasolabial folds, forehead lines, jowls */}
@@ -156,6 +172,15 @@ export const Suspect: React.FC<SuspectProps> = ({kind, mouth = 0, blink = 0, loo
             {/* walrus moustache, grey */}
             <Ink d="M-70 100 C-60 76 -26 70 0 80 C26 70 60 76 70 100 C74 116 64 122 54 112 C40 100 20 98 0 102 C-20 98 -40 100 -54 112 C-64 122 -74 116 -70 100 Z" fill="#8f877d" w={2.4} heavy={0} />
             <path d="M-50 94 L-46 108 M-30 88 L-28 104 M30 88 L28 104 M50 94 L46 108" stroke="#5a544c" strokeWidth={2} />
+          </g>
+        )}
+        {kind === 'thief' && (
+          <g>
+            {/* hollow cheeks, cheekbones, thin scar-less clean jaw with a little stubble */}
+            {[-1, 1].map((sx) => (
+              <path key={sx} d={`M${sx * (fw - 14)} 20 C${sx * (fw - 26)} 60 ${sx * (fw - 40)} 90 ${sx * (fw - 60)} 110`} stroke={INK} strokeWidth={2.2} fill="none" opacity={0.5} />
+            ))}
+            <path d={`M${-jw * 0.5} 120 C${-jw * 0.3} 160 ${jw * 0.3} 160 ${jw * 0.5} 120 C${jw * 0.3} 176 ${-jw * 0.3} 176 ${-jw * 0.5} 120 Z`} fill="url(#stubble)" opacity={0.7} />
           </g>
         )}
         {kind === 'assistant' && (
@@ -191,6 +216,13 @@ export const Suspect: React.FC<SuspectProps> = ({kind, mouth = 0, blink = 0, loo
           <Ink d={`M${-fw - 8} -20 C${-fw - 20} -130 ${-fw * 0.5} -200 ${fw * 0.2} -196 C${fw * 0.9} -190 ${fw + 16} -120 ${fw + 6} -30 C${fw - 4} -90 ${fw * 0.6} -130 ${fw * 0.1} -136 C${-fw * 0.3} -150 ${-fw * 0.8} -110 ${-fw - 8} -20 Z`} fill={L.hair} />
           <path d={`M${-fw * 0.35} -190 C${-fw * 0.4} -160 ${-fw * 0.42} -150 ${-fw * 0.5} -132`} stroke="#3a3530" strokeWidth={3} fill="none" />
           <Line d={`M${-fw * 0.3} -186 C${fw * 0.2} -196 ${fw * 0.7} -170 ${fw * 0.95} -110`} w={3} c="#4a4440" op={0.8} />
+        </g>
+      )}
+      {kind === 'thief' && (
+        <g>
+          {/* buzz cut with a sharp hairline */}
+          <Ink d={`M${-fw - 6} -30 C${-fw - 14} -130 ${-fw * 0.6} -186 0 -188 C${fw * 0.6} -186 ${fw + 14} -130 ${fw + 6} -30 C${fw - 6} -80 ${fw - 14} -110 ${fw * 0.5} -124 C${fw * 0.2} -132 ${fw * 0.08} -116 0 -128 C${-fw * 0.08} -116 ${-fw * 0.2} -132 ${-fw * 0.5} -124 C${-fw + 14} -110 ${-fw + 6} -80 ${-fw - 6} -30 Z`} fill={L.hair} />
+          <path d={`M${-fw * 0.7} -150 C${-fw * 0.2} -176 ${fw * 0.3} -176 ${fw * 0.8} -140`} fill="url(#stubble)" opacity={0.9} />
         </g>
       )}
       {kind === 'guard' && (
@@ -247,7 +279,7 @@ const SEye: React.FC<{cx: number; cy: number; w: number; lx: number; ly: number;
   );
 };
 
-const SMouth: React.FC<{m: number; kind: NPCKind}> = ({m, kind}) => {
+const SMouth: React.FC<{m: number; kind: NPCKind; smirk?: number}> = ({m, kind, smirk = 0}) => {
   const y = 112;
   const w = kind === 'driver' || kind === 'guard' ? 46 : 38;
   const lip = kind === 'wife' ? '#8c1c22' : '#8a5a4a';
@@ -255,7 +287,8 @@ const SMouth: React.FC<{m: number; kind: NPCKind}> = ({m, kind}) => {
     return (
       <g>
         {kind === 'wife' && <path d={`M${-w} ${y} C${-w / 2} ${y - 12} ${w / 2} ${y - 12} ${w} ${y} C${w / 2} ${y + 16} ${-w / 2} ${y + 16} ${-w} ${y} Z`} fill={lip} stroke={INK} strokeWidth={2} />}
-        <path d={`M${-w} ${y} C${-w / 2} ${y - 3} ${w / 2} ${y - 3} ${w} ${y + 2}`} stroke={INK} strokeWidth={3} fill="none" strokeLinecap="round" />
+        <path d={`M${-w} ${y + smirk * 2} C${-w / 2} ${y - 3} ${w / 2} ${y - 3 - smirk * 6} ${w + smirk * 8} ${y + 2 - smirk * 16}`} stroke={INK} strokeWidth={3} fill="none" strokeLinecap="round" />
+        {smirk > 0.2 && <path d={`M${w + smirk * 6} ${y - smirk * 18} C${w + 14} ${y - smirk * 10} ${w + 16} ${y} ${w + 10} ${y + 8}`} stroke={INK} strokeWidth={2} fill="none" opacity={0.55 * smirk} />}
       </g>
     );
   const o = 6 + m * 26;

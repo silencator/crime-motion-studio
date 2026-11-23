@@ -309,3 +309,62 @@ export const Torch: React.FC<{f: number; x: number; y: number; r?: number; dark?
     </AbsoluteFill>
   );
 };
+
+/* ------------------------------------------------------------------ */
+/* Rain (CASE 003): slanted streaks in 3 depths, stepped on 2s, with   */
+/* optional ground splashes. Screen-space HTML overlay.                */
+/* ------------------------------------------------------------------ */
+const RainLayer: React.FC<{f: number; n: number; len: number; w: number; speed: number; slant: number; seed: number; color: string; op: number}> = ({f, n, len, w, speed, slant, seed, color, op}) => {
+  const t = stepF(f, 2) / 60;
+  const out = [];
+  for (let i = 0; i < n; i++) {
+    const v = speed * (0.85 + hash(i * 5.3 + seed) * 0.3);
+    const x0 = hash(i * 7.1 + seed) * (W + 600) - 300;
+    const y0 = hash(i * 3.7 + seed * 2) * (H + 400);
+    const y = ((y0 + t * v) % (H + 400)) - 200;
+    const x = x0 + (y + 200) * slant;
+    out.push(<line key={i} x1={x} y1={y} x2={x - len * slant} y2={y - len} stroke={color} strokeWidth={w} strokeLinecap="round" opacity={op * (0.5 + hash(i + seed) * 0.5)} />);
+  }
+  return <g>{out}</g>;
+};
+
+export const Rain: React.FC<{f: number; density?: number; slant?: number; tint?: string; front?: boolean; splashY?: number; op?: number}> = ({
+  f,
+  density = 1,
+  slant = 0.18,
+  tint = '#cfd8e0',
+  front = true,
+  splashY,
+  op = 1,
+}) => (
+  <AbsoluteFill style={{pointerEvents: 'none', opacity: op}}>
+    <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H}>
+      <RainLayer f={f} n={Math.round(160 * density)} len={36} w={1.4} speed={1900} slant={slant} seed={2} color={tint} op={0.35} />
+      <RainLayer f={f} n={Math.round(70 * density)} len={70} w={2.4} speed={2600} slant={slant} seed={5} color={tint} op={0.5} />
+      {front && (
+        <g style={{filter: 'blur(2.5px)'}}>
+          <RainLayer f={f} n={Math.round(14 * density)} len={180} w={5} speed={3600} slant={slant} seed={9} color={tint} op={0.45} />
+        </g>
+      )}
+      {splashY !== undefined &&
+        Array.from({length: Math.round(26 * density)}).map((_, i) => {
+          const k = Math.floor(stepF(f, 2) / 6) + i * 3;
+          const life = (stepF(f, 2) % 6) / 6;
+          const x = hash(k * 1.9 + i) * W;
+          const y = splashY + hash(k * 2.7 + i) * (H - splashY);
+          const r = 4 + life * 16 * (0.6 + (y - splashY) / (H - splashY + 1));
+          return <ellipse key={i} cx={x} cy={y} rx={r} ry={r * 0.3} fill="none" stroke={tint} strokeWidth={1.6} opacity={(1 - life) * 0.6} />;
+        })}
+    </svg>
+  </AbsoluteFill>
+);
+
+/** 4-point sparkle (diamond glint). Use inside svg. k = 0..1 intensity. */
+export const Glint: React.FC<{x: number; y: number; r?: number; k?: number; color?: string; rot?: number}> = ({x, y, r = 40, k = 1, color = '#ffffff', rot = 0}) =>
+  k <= 0.01 ? null : (
+    <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${k})`} opacity={Math.min(1, k * 1.4)}>
+      <circle r={r * 0.6} fill={color} opacity={0.18} />
+      <path d={`M0 ${-r} L${r * 0.09} ${-r * 0.09} L${r} 0 L${r * 0.09} ${r * 0.09} L0 ${r} L${-r * 0.09} ${r * 0.09} L${-r} 0 L${-r * 0.09} ${-r * 0.09} Z`} fill={color} />
+      <path d={`M0 ${-r * 0.5} L${r * 0.06} 0 L0 ${r * 0.5} L${-r * 0.06} 0 Z`} fill={color} transform="rotate(45)" />
+    </g>
+  );

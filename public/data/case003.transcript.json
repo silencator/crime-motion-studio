@@ -1,0 +1,604 @@
+[
+ {
+  "start": 0,
+  "end": 2.312,
+  "text": "HE PLANNED IT FOR AN ENTIRE YEAR",
+  "words": [
+   [
+    "HE",
+    0.0
+   ],
+   [
+    "PLANNED",
+    0.16
+   ],
+   [
+    "IT",
+    0.56
+   ],
+   [
+    "FOR",
+    0.76
+   ],
+   [
+    "AN",
+    0.96
+   ],
+   [
+    "ENTIRE",
+    1.16
+   ],
+   [
+    "YEAR",
+    1.88
+   ]
+  ]
+ },
+ {
+  "start": 2.87,
+  "end": 4.116,
+  "text": "ONE JEWELRY STORE",
+  "words": [
+   [
+    "ONE",
+    2.77
+   ],
+   [
+    "JEWELRY",
+    3.17
+   ],
+   [
+    "STORE",
+    3.73
+   ]
+  ]
+ },
+ {
+  "start": 4.567,
+  "end": 5.232,
+  "text": "TEN MINUTES",
+  "words": [
+   [
+    "TEN",
+    4.47
+   ],
+   [
+    "MINUTES",
+    4.79
+   ]
+  ]
+ },
+ {
+  "start": 5.558,
+  "end": 6.806,
+  "text": "ZERO MISTAKES",
+  "words": [
+   [
+    "ZERO",
+    5.46
+   ],
+   [
+    "MISTAKES",
+    6.14
+   ]
+  ]
+ },
+ {
+  "start": 7.315,
+  "end": 9.868,
+  "text": "HE STUDIED THE GUARDS TRACKED THE CAMERAS",
+  "words": [
+   [
+    "HE",
+    7.22
+   ],
+   [
+    "STUDIED",
+    7.37
+   ],
+   [
+    "THE",
+    7.9
+   ],
+   [
+    "GUARDS",
+    8.05
+   ],
+   [
+    "TRACKED",
+    8.73
+   ],
+   [
+    "THE",
+    9.17
+   ],
+   [
+    "CAMERAS",
+    9.37
+   ]
+  ]
+ },
+ {
+  "start": 10.185,
+  "end": 11.493,
+  "text": "PREPARED EVERYTHING",
+  "words": [
+   [
+    "PREPARED",
+    10.09
+   ],
+   [
+    "EVERYTHING",
+    10.88
+   ]
+  ]
+ },
+ {
+  "start": 12.087,
+  "end": 13.392,
+  "text": "GLOVES A MASK",
+  "words": [
+   [
+    "GLOVES",
+    11.99
+   ],
+   [
+    "A",
+    12.71
+   ],
+   [
+    "MASK",
+    12.91
+   ]
+  ]
+ },
+ {
+  "start": 13.728,
+  "end": 15.644,
+  "text": "SHOES TWO SIZES TOO BIG",
+  "words": [
+   [
+    "SHOES",
+    13.63
+   ],
+   [
+    "TWO",
+    14.19
+   ],
+   [
+    "SIZES",
+    14.51
+   ],
+   [
+    "TOO",
+    15.07
+   ],
+   [
+    "BIG",
+    15.35
+   ]
+  ]
+ },
+ {
+  "start": 16.183,
+  "end": 17.524,
+  "text": "AT THREE TWELVE A M",
+  "words": [
+   [
+    "AT",
+    16.08
+   ],
+   [
+    "THREE",
+    16.32
+   ],
+   [
+    "TWELVE",
+    16.64
+   ],
+   [
+    "A",
+    17.12
+   ],
+   [
+    "M",
+    17.28
+   ]
+  ]
+ },
+ {
+  "start": 17.801,
+  "end": 18.5,
+  "text": "HE WALKED IN",
+  "words": [
+   [
+    "HE",
+    17.7
+   ],
+   [
+    "WALKED",
+    17.94
+   ],
+   [
+    "IN",
+    18.34
+   ]
+  ]
+ },
+ {
+  "start": 19.113,
+  "end": 19.974,
+  "text": "TEN MINUTES LATER",
+  "words": [
+   [
+    "TEN",
+    19.01
+   ],
+   [
+    "MINUTES",
+    19.25
+   ],
+   [
+    "LATER",
+    19.69
+   ]
+  ]
+ },
+ {
+  "start": 20.327,
+  "end": 21.079,
+  "text": "HE WALKED OUT",
+  "words": [
+   [
+    "HE",
+    20.23
+   ],
+   [
+    "WALKED",
+    20.47
+   ],
+   [
+    "OUT",
+    20.87
+   ]
+  ]
+ },
+ {
+  "start": 21.511,
+  "end": 23.672,
+  "text": "TWO MILLION DOLLARS IN DIAMONDS",
+  "words": [
+   [
+    "TWO",
+    21.41
+   ],
+   [
+    "MILLION",
+    21.81
+   ],
+   [
+    "DOLLARS",
+    22.37
+   ],
+   [
+    "IN",
+    22.93
+   ],
+   [
+    "DIAMONDS",
+    23.13
+   ]
+  ]
+ },
+ {
+  "start": 24.141,
+  "end": 24.481,
+  "text": "GONE",
+  "words": [
+   [
+    "GONE",
+    24.04
+   ]
+  ]
+ },
+ {
+  "start": 24.97,
+  "end": 26.803,
+  "text": "NO FINGER PRINTS NO WITNESSES",
+  "words": [
+   [
+    "NO",
+    24.87
+   ],
+   [
+    "FINGER",
+    25.11
+   ],
+   [
+    "PRINTS",
+    25.47
+   ],
+   [
+    "NO",
+    25.95
+   ],
+   [
+    "WITNESSES",
+    26.19
+   ]
+  ]
+ },
+ {
+  "start": 27.22,
+  "end": 28.073,
+  "text": "NO TRACE",
+  "words": [
+   [
+    "NO",
+    27.12
+   ],
+   [
+    "TRACE",
+    27.52
+   ]
+  ]
+ },
+ {
+  "start": 28.602,
+  "end": 30.216,
+  "text": "IT WAS THE PERFECT CRY",
+  "words": [
+   [
+    "IT",
+    28.5
+   ],
+   [
+    "WAS",
+    28.74
+   ],
+   [
+    "THE",
+    28.94
+   ],
+   [
+    "PERFECT",
+    29.22
+   ],
+   [
+    "CRY",
+    29.86
+   ]
+  ]
+ },
+ {
+  "start": 30.934,
+  "end": 32.368,
+  "text": "OR SO HE THOUGHT",
+  "words": [
+   [
+    "OR",
+    30.83
+   ],
+   [
+    "SO",
+    31.23
+   ],
+   [
+    "HE",
+    31.59
+   ],
+   [
+    "THOUGHT",
+    31.95
+   ]
+  ]
+ },
+ {
+  "start": 32.871,
+  "end": 35.508,
+  "text": "THREE DAYS LATER THE POLICE KNOCKED ON HIS DOOR",
+  "words": [
+   [
+    "THREE",
+    32.77
+   ],
+   [
+    "DAYS",
+    33.09
+   ],
+   [
+    "LATER",
+    33.45
+   ],
+   [
+    "THE",
+    33.85
+   ],
+   [
+    "POLICE",
+    34.05
+   ],
+   [
+    "KNOCKED",
+    34.53
+   ],
+   [
+    "ON",
+    34.89
+   ],
+   [
+    "HIS",
+    35.05
+   ],
+   [
+    "DOOR",
+    35.25
+   ]
+  ]
+ },
+ {
+  "start": 36.02,
+  "end": 36.581,
+  "text": "AND THE REASON",
+  "words": [
+   [
+    "AND",
+    35.92
+   ],
+   [
+    "THE",
+    36.04
+   ],
+   [
+    "REASON",
+    36.2
+   ]
+  ]
+ },
+ {
+  "start": 37.146,
+  "end": 39.879,
+  "text": "BEFORE THE ROBBERY HE'D PARKED ACROSS THE STREET",
+  "words": [
+   [
+    "BEFORE",
+    37.05
+   ],
+   [
+    "THE",
+    37.45
+   ],
+   [
+    "ROBBERY",
+    37.61
+   ],
+   [
+    "HE'D",
+    38.25
+   ],
+   [
+    "PARKED",
+    38.49
+   ],
+   [
+    "ACROSS",
+    38.85
+   ],
+   [
+    "THE",
+    39.29
+   ],
+   [
+    "STREET",
+    39.49
+   ]
+  ]
+ },
+ {
+  "start": 40.211,
+  "end": 41.62,
+  "text": "AND TO PAY FOR PARKING",
+  "words": [
+   [
+    "AND",
+    40.11
+   ],
+   [
+    "TO",
+    40.39
+   ],
+   [
+    "PAY",
+    40.59
+   ],
+   [
+    "FOR",
+    40.91
+   ],
+   [
+    "PARKING",
+    41.11
+   ]
+  ]
+ },
+ {
+  "start": 42.036,
+  "end": 43.984,
+  "text": "HE USED HIS OWN BANK CARD",
+  "words": [
+   [
+    "HE",
+    41.94
+   ],
+   [
+    "USED",
+    42.18
+   ],
+   [
+    "HIS",
+    42.58
+   ],
+   [
+    "OWN",
+    42.82
+   ],
+   [
+    "BANK",
+    43.14
+   ],
+   [
+    "CARD",
+    43.62
+   ]
+  ]
+ },
+ {
+  "start": 44.439,
+  "end": 46.022,
+  "text": "ONE TINY MISTAKE",
+  "words": [
+   [
+    "ONE",
+    44.34
+   ],
+   [
+    "TINY",
+    44.82
+   ],
+   [
+    "MISTAKE",
+    45.46
+   ]
+  ]
+ },
+ {
+  "start": 46.502,
+  "end": 47.857,
+  "text": "ONE PERFECT CRIME",
+  "words": [
+   [
+    "ONE",
+    46.4
+   ],
+   [
+    "PERFECT",
+    46.8
+   ],
+   [
+    "CRIME",
+    47.48
+   ]
+  ]
+ },
+ {
+  "start": 48.441,
+  "end": 49.241,
+  "text": "RUINED",
+  "words": [
+   [
+    "RUINED",
+    48.34
+   ]
+  ]
+ }
+]
