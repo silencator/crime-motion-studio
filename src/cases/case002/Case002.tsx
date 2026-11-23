@@ -42,7 +42,7 @@ const SFX: Cue[] = [
   {at: 0.0, src: 'tick', vol: 0.2},
   {at: 1.9, src: 'whoosh-low', vol: 0.4},
   // IF's fastback rolls up
-  {at: 1.95, src: 'car-arrive', vol: 0.5},
+  {at: 1.95, src: 'car-arrive', vol: 0.3},
   // guard
   {at: 4.12, src: 'whoosh-soft', vol: 0.28},
   {at: 4.9, src: 'keys', vol: 0.35},
@@ -88,7 +88,7 @@ const SFX: Cue[] = [
   {at: 35.95, src: 'exhale', vol: 0.28},
   // outro: the fastback pulls away, stamp
   {at: 36.62, src: 'whoosh-soft', vol: 0.3},
-  {at: 36.55, src: 'car-depart', vol: 0.5, dur: 4.6},
+  {at: 37.55, src: 'car-depart', vol: 0.4, dur: 2.45},
   {at: CLOSED_S, src: 'stamp', vol: 1.0},
   {at: CLOSED_S, src: 'sting', vol: 0.5},
 ];
@@ -101,7 +101,7 @@ const CORRIDOR: (keyof typeof SHOTS)[] = ['backdoor', 'never', 'hidden'];
 
 const Sound: React.FC = () => (
   <>
-    <Html5Audio src={staticFile('audio/case002.mp3')} volume={1} />
+    <Html5Audio src={staticFile('audio/case002_vo.wav')} volume={1} />
     <Html5Audio src={staticFile('sfx/bed-drone.wav')} volume={(fr) => 0.2 * clamp(fr / 30) * clamp((sec(DURATION_S) - fr) / 60)} />
     <Html5Audio src={staticFile('sfx/bed-wind.wav')} volume={(fr) => (inShots(fr / 60, EXTERIOR) ? 0.38 : 0.06)} />
     <Html5Audio src={staticFile('sfx/bed-hum.wav')} volume={(fr) => (inShots(fr / 60, CORRIDOR) ? 0.2 : 0.05)} />

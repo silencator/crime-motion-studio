@@ -531,7 +531,7 @@ export const IFSecret: React.FC<ShotP> = ({f, g}) => {
 /* 18 · OUTRO: the fastback pulls away into the snow, CASE CLOSED     */
 /* ================================================================== */
 export const Outro: React.FC<ShotP> = ({f, g}) => {
-  const go = easeI(clamp((f - 18) / 150));
+  const go = easeI(clamp((f - 60) / 140));
   const carX = lerp(150, 1500, go);
   const roll = (carX - 150) / (62 * CAR_S);
   const k = easeIO(clamp(f / 200));

@@ -2,10 +2,10 @@ import type {Accent, Sub} from '../../kit/captions';
 
 /**
  * CASE 002 · "The Missing Painting": word times from public/data/case002.transcript.json (sherpa-onnx),
- * checked against cases script (Arian's final text). Voice ends 37.88 s; stamp on "closed" (37.11).
+ * checked against cases script (Arian's final text). Voice ends 37.88 s; stamp right after "closed" (word ends ≈37.85, keeps the word clean).
  */
 export const DURATION_S = 40.0;
-export const CLOSED_S = 37.14;
+export const CLOSED_S = 37.7;
 
 /** Shot boundaries (seconds), cut on the phrase starts of the voice-over. */
 export const SHOTS = {
