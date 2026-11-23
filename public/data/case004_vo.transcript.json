@@ -1,0 +1,550 @@
+[
+ {
+  "start": 0.0,
+  "end": 2.263,
+  "text": "THIS MAN JUST LIED TO THE POLICE",
+  "words": [
+   [
+    "THIS",
+    0.0
+   ],
+   [
+    "MAN",
+    0.24
+   ],
+   [
+    "JUST",
+    0.64
+   ],
+   [
+    "LIED",
+    0.96
+   ],
+   [
+    "TO",
+    1.36
+   ],
+   [
+    "THE",
+    1.52
+   ],
+   [
+    "POLICE",
+    1.68
+   ]
+  ]
+ },
+ {
+  "start": 2.563,
+  "end": 3.901,
+  "text": "THE PROOF IS IN THE SNOW",
+  "words": [
+   [
+    "THE",
+    2.503
+   ],
+   [
+    "PROOF",
+    2.622
+   ],
+   [
+    "IS",
+    3.062
+   ],
+   [
+    "IN",
+    3.262
+   ],
+   [
+    "THE",
+    3.382
+   ],
+   [
+    "SNOW",
+    3.542
+   ]
+  ]
+ },
+ {
+  "start": 4.161,
+  "end": 4.742,
+  "text": "CAN YOU CATCH IT",
+  "words": [
+   [
+    "CAN",
+    4.101
+   ],
+   [
+    "YOU",
+    4.222
+   ],
+   [
+    "CATCH",
+    4.382
+   ],
+   [
+    "IT",
+    4.662
+   ]
+  ]
+ },
+ {
+  "start": 5.062,
+  "end": 7.427,
+  "text": "HIS PAWN SHOP WAS ROBBED AT TWO A M",
+  "words": [
+   [
+    "HIS",
+    5.002
+   ],
+   [
+    "PAWN",
+    5.201
+   ],
+   [
+    "SHOP",
+    5.521
+   ],
+   [
+    "WAS",
+    5.921
+   ],
+   [
+    "ROBBED",
+    6.121
+   ],
+   [
+    "AT",
+    6.521
+   ],
+   [
+    "TWO",
+    6.721
+   ],
+   [
+    "A",
+    7.001
+   ],
+   [
+    "M",
+    7.201
+   ]
+  ]
+ },
+ {
+  "start": 7.707,
+  "end": 8.846,
+  "text": "THE SAFE WAS EMPTY",
+  "words": [
+   [
+    "THE",
+    7.647
+   ],
+   [
+    "SAFE",
+    7.762
+   ],
+   [
+    "WAS",
+    8.172
+   ],
+   [
+    "EMPTY",
+    8.402
+   ]
+  ]
+ },
+ {
+  "start": 9.126,
+  "end": 10.733,
+  "text": "THE BACK WINDOW WAS SMASHED",
+  "words": [
+   [
+    "THE",
+    9.066
+   ],
+   [
+    "BACK",
+    9.184
+   ],
+   [
+    "WINDOW",
+    9.464
+   ],
+   [
+    "WAS",
+    9.904
+   ],
+   [
+    "SMASHED",
+    10.104
+   ]
+  ]
+ },
+ {
+  "start": 11.013,
+  "end": 12.724,
+  "text": "THE THIEF CAME IN THROUGH THE WINDOW",
+  "words": [
+   [
+    "THE",
+    10.953
+   ],
+   [
+    "THIEF",
+    11.071
+   ],
+   [
+    "CAME",
+    11.431
+   ],
+   [
+    "IN",
+    11.711
+   ],
+   [
+    "THROUGH",
+    11.911
+   ],
+   [
+    "THE",
+    12.111
+   ],
+   [
+    "WINDOW",
+    12.271
+   ]
+  ]
+ },
+ {
+  "start": 12.984,
+  "end": 14.243,
+  "text": "I HEARD THE GLASS BREAK",
+  "words": [
+   [
+    "I",
+    12.951
+   ],
+   [
+    "HEARD",
+    13.045
+   ],
+   [
+    "THE",
+    13.325
+   ],
+   [
+    "GLASS",
+    13.445
+   ],
+   [
+    "BREAK",
+    13.925
+   ]
+  ]
+ },
+ {
+  "start": 14.603,
+  "end": 16.23,
+  "text": "DETECTIVE STEPPED OUTSIDE",
+  "words": [
+   [
+    "DETECTIVE",
+    14.543
+   ],
+   [
+    "STEPPED",
+    15.179
+   ],
+   [
+    "OUTSIDE",
+    15.619
+   ]
+  ]
+ },
+ {
+  "start": 16.51,
+  "end": 18.33,
+  "text": "THE SNOW HAD STOPPED AT MIDNIGHT",
+  "words": [
+   [
+    "THE",
+    16.45
+   ],
+   [
+    "SNOW",
+    16.569
+   ],
+   [
+    "HAD",
+    17.009
+   ],
+   [
+    "STOPPED",
+    17.209
+   ],
+   [
+    "AT",
+    17.609
+   ],
+   [
+    "MIDNIGHT",
+    17.809
+   ]
+  ]
+ },
+ {
+  "start": 18.63,
+  "end": 20.723,
+  "text": "UNDER THE WINDOW IT WAS SMOOTH",
+  "words": [
+   [
+    "UNDER",
+    18.57
+   ],
+   [
+    "THE",
+    19.008
+   ],
+   [
+    "WINDOW",
+    19.168
+   ],
+   [
+    "IT",
+    19.808
+   ],
+   [
+    "WAS",
+    20.008
+   ],
+   [
+    "SMOOTH",
+    20.248
+   ]
+  ]
+ },
+ {
+  "start": 20.963,
+  "end": 21.703,
+  "text": "UNTOUCHED",
+  "words": [
+   [
+    "UNTOUCHED",
+    20.903
+   ]
+  ]
+ },
+ {
+  "start": 21.943,
+  "end": 22.892,
+  "text": "NO FOOTPRINTS",
+  "words": [
+   [
+    "NO",
+    21.883
+   ],
+   [
+    "FOOTPRINTS",
+    22.164
+   ]
+  ]
+ },
+ {
+  "start": 23.172,
+  "end": 25.865,
+  "text": "AND THE BROKEN GLASS LAY ON TOP OF THE SNOW",
+  "words": [
+   [
+    "AND",
+    23.124
+   ],
+   [
+    "THE",
+    23.267
+   ],
+   [
+    "BROKEN",
+    23.467
+   ],
+   [
+    "GLASS",
+    24.027
+   ],
+   [
+    "LAY",
+    24.507
+   ],
+   [
+    "ON",
+    24.747
+   ],
+   [
+    "TOP",
+    24.947
+   ],
+   [
+    "OF",
+    25.277
+   ],
+   [
+    "THE",
+    25.387
+   ],
+   [
+    "SNOW",
+    25.517
+   ]
+  ]
+ },
+ {
+  "start": 26.225,
+  "end": 28.534,
+  "text": "THE WINDOW WAS SMASHED FROM THE INSIDE",
+  "words": [
+   [
+    "THE",
+    26.165
+   ],
+   [
+    "WINDOW",
+    26.283
+   ],
+   [
+    "WAS",
+    26.763
+   ],
+   [
+    "SMASHED",
+    26.963
+   ],
+   [
+    "FROM",
+    27.483
+   ],
+   [
+    "THE",
+    27.683
+   ],
+   [
+    "INSIDE",
+    27.883
+   ]
+  ]
+ },
+ {
+  "start": 28.834,
+  "end": 29.926,
+  "text": "THERE WAS NO THIEF",
+  "words": [
+   [
+    "THERE",
+    28.774
+   ],
+   [
+    "WAS",
+    28.971
+   ],
+   [
+    "NO",
+    29.211
+   ],
+   [
+    "THIEF",
+    29.491
+   ]
+  ]
+ },
+ {
+  "start": 30.186,
+  "end": 31.759,
+  "text": "HE ROBBED HIS OWN SHOP",
+  "words": [
+   [
+    "HE",
+    30.126
+   ],
+   [
+    "ROBBED",
+    30.286
+   ],
+   [
+    "HIS",
+    30.726
+   ],
+   [
+    "OWN",
+    30.966
+   ],
+   [
+    "SHOP",
+    31.326
+   ]
+  ]
+ },
+ {
+  "start": 31.999,
+  "end": 32.915,
+  "text": "FOR THE INSURANCE",
+  "words": [
+   [
+    "FOR",
+    31.966
+   ],
+   [
+    "THE",
+    32.058
+   ],
+   [
+    "INSURANCE",
+    32.218
+   ]
+  ]
+ },
+ {
+  "start": 33.275,
+  "end": 34.83,
+  "text": "THE PROOF WAS IN THE SNOW",
+  "words": [
+   [
+    "THE",
+    33.215
+   ],
+   [
+    "PROOF",
+    33.375
+   ],
+   [
+    "WAS",
+    33.855
+   ],
+   [
+    "IN",
+    34.095
+   ],
+   [
+    "THE",
+    34.255
+   ],
+   [
+    "SNOW",
+    34.455
+   ]
+  ]
+ },
+ {
+  "start": 35.19,
+  "end": 36.433,
+  "text": "CASE CLOSED",
+  "words": [
+   [
+    "CASE",
+    35.13
+   ],
+   [
+    "CLOSED",
+    35.569
+   ]
+  ]
+ }
+]

@@ -1,14 +1,14 @@
 import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import {Layer, Stage} from '../../kit/camera';
-import {CigSmoke, Defs, Dust, Flash, Grade, policePhase} from '../../kit/fx';
+import {Defs, Dust, Flash, Glint, Grade, Ink, policePhase} from '../../kit/fx';
 import {clamp, easeI, easeIO, easeO, hash, inv, lerp, noise1, sec, stepF} from '../../kit/time';
-import {IFBust} from '../../characters/IFBust';
 import {IFBody} from '../../characters/IFBody';
 import {Suspect} from '../../characters/Suspects';
 import {Block, Lamp, PoliceCar} from '../../locations/soviet';
 import {AlleyBack, BackWindowInside, BreathFog, ClaimForm, GlassShards, NightSky, PawnFacade, PawnInterior, Prints, Safe, SnowTop, WallClock} from '../../locations/pawnshop';
-import timing from '../../../public/data/case004.timing.json';
+import timing from '../../../public/data/case004_vo.timing.json';
+import {HIT_S, SHOTS} from './timeline';
 
 /** f = frame inside the shot, g = global frame. */
 export type ShotP = {f: number; g: number};
@@ -36,11 +36,11 @@ const PoliceWash: React.FC<{g: number; side?: 'left' | 'right'; k?: number}> = (
 };
 
 /** Blurred pawn-shop interior behind close-ups. */
-const ShopBokeh: React.FC<{g: number; x?: number; dark?: number}> = ({g, x = 600, dark = 0.35}) => (
+const ShopBokeh: React.FC<{g: number; x?: number; dark?: number; blur?: number}> = ({g, x = 600, dark = 0.35, blur = 16}) => (
   <AbsoluteFill>
     <Stage cam={{x, y: 900, zoom: 0.9}} bg="#1a120c">
       <Defs />
-      <Layer blur={16}>
+      <Layer blur={blur}>
         <PawnInterior f={g} clock={false} />
       </Layer>
     </Stage>
@@ -48,52 +48,79 @@ const ShopBokeh: React.FC<{g: number; x?: number; dark?: number}> = ({g, x = 600
   </AbsoluteFill>
 );
 
-/** Cold night bokeh (street lights, blue). */
-const NightBokeh: React.FC<{g: number; seed?: number; dark?: number}> = ({g, seed = 1, dark = 0.3}) => (
-  <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 35%, #1b2a40 0%, #05080e 75%)'}}>
-    <svg viewBox="0 0 1080 1920" width={1080} height={1920} style={{position: 'absolute', inset: 0, filter: 'blur(20px)'}}>
-      <rect x={0} y={1300} width={1080} height={700} fill="#5a6a80" opacity={0.5} />
-      {Array.from({length: 8}).map((_, i) => (
-        <circle key={i} cx={hash(i * 3 + seed) * 1080} cy={250 + hash(i * 7 + seed) * 900} r={40 + hash(i + seed) * 80} fill={i % 3 === 0 ? '#ffb347' : '#8fb4ff'} opacity={0.18 + 0.15 * hash(i + Math.floor(g / 40))} />
-      ))}
-    </svg>
-    <AbsoluteFill style={{background: '#000', opacity: dark}} />
-  </AbsoluteFill>
-);
-
-const Pawnbroker: React.FC<{g: number; mouth?: number; look?: [number, number]; fear?: number; sweat?: number; rim?: string; rimOp?: number}> = ({g, mouth = 0, look = [0, 0], fear = 0, sweat = 0, rim = '#ffb45a', rimOp = 0.7}) => (
-  <Suspect kind="pawnbroker" mouth={mouth} lookX={look[0]} lookY={look[1]} fear={fear} sweat={sweat} rim={rim} rimOp={rimOp} blink={blinkAt(stepF(g, 2), 13)} />
+const Pawnbroker: React.FC<{g: number; mouth?: number; look?: [number, number]; fear?: number; sweat?: number; rim?: string; rimOp?: number; smirk?: number}> = ({g, mouth = 0, look = [0, 0], fear = 0, sweat = 0, rim = '#ffb45a', rimOp = 0.7, smirk = 0}) => (
+  <Suspect kind="pawnbroker" mouth={mouth} lookX={look[0]} lookY={look[1]} fear={fear} sweat={sweat} rim={rim} rimOp={rimOp} smirk={smirk} blink={blinkAt(stepF(g, 2), 13)} />
 );
 
 /* ================================================================== */
-/* 1 · HOOK: the pawnbroker under police lights (frame 1 already lit) */
+/* HOOK (trial): 3 cuts in 2.5 s, bright, on the crime, not on IF     */
 /* ================================================================== */
-export const Hook: React.FC<ShotP> = ({f, g}) => {
-  const k = easeIO(clamp(f / 150));
-  const dart = Math.floor(stepF(f, 4) / 40) % 2 ? -0.9 : 0.5;
+export const HookFace: React.FC<ShotP> = ({f, g}) => {
+  const dart = f < 22 ? 0.7 : -0.9;
   return (
     <AbsoluteFill>
-      <NightBokeh g={g} seed={3} />
-      <Stage cam={{x: 540, y: 900, zoom: lerp(1.05, 1.22, k), f, shake: 0.9}} bg="transparent">
+      <Stage cam={{x: 540, y: 900, zoom: 0.62, f}} bg="#1c2a3e">
+        <Defs />
+        <Layer blur={5}>
+          <PawnFacade x={540} y={1500} s={1} f={g} />
+          <rect x={-1200} y={1498} width={3400} height={900} fill="#9fb0c4" />
+        </Layer>
+      </Stage>
+      <Stage cam={{x: 540, y: 760, zoom: lerp(1.55, 1.68, f / 55), f, shake: 1.4}} bg="transparent">
         <Defs />
         <Layer>
           <g transform="translate(540 820) scale(1.3)">
-            <Pawnbroker g={g} look={[dart, 0.1]} sweat={0.35} fear={0.15} rim="#8fb4ff" rimOp={0.8} />
+            <Pawnbroker g={g} look={[dart, 0.05]} fear={0.1} rim="#ff4a3a" rimOp={0.9} />
           </g>
         </Layer>
       </Stage>
-      <Grade color="#7a8cb0" mode="multiply" op={0.35} />
-      <PoliceWash g={g} side="left" k={1.2} />
-      <PoliceWash g={g + 24} side="right" k={0.6} />
+      <PoliceWash g={g} side="left" k={1.3} />
+      <PoliceWash g={g + 24} side="right" k={0.8} />
+      <AbsoluteFill style={{background: '#fff', opacity: 0.06, mixBlendMode: 'screen'}} />
     </AbsoluteFill>
   );
 };
 
+export const HookGlass: React.FC<ShotP> = ({f, g}) => {
+  const {red, blue} = policePhase(g);
+  return (
+    <AbsoluteFill>
+      <Stage cam={{x: lerp(1270, 1320, f / 48), y: 930, zoom: lerp(2.9, 3.2, f / 48), rot: -6, f, shake: 1.2}}>
+        <Defs />
+        <Layer>
+          <AlleyBack f={g} />
+          <rect x={1150} y={760} width={300} height={320} fill="#ff2a1a" opacity={0.35 * red} style={{mixBlendMode: 'screen'}} />
+          <rect x={1150} y={760} width={300} height={320} fill="#3a6aff" opacity={0.4 * blue} style={{mixBlendMode: 'screen'}} />
+          <Glint x={1225} y={815} r={34} k={0.6 + 0.4 * hash(stepF(f, 6))} />
+          <Glint x={1262} y={1030} r={22} k={0.8} />
+        </Layer>
+      </Stage>
+      <Grade color="#9fb4d8" mode="multiply" op={0.2} />
+    </AbsoluteFill>
+  );
+};
+
+export const HookLights: React.FC<ShotP> = ({f, g}) => (
+  <AbsoluteFill>
+    <Stage cam={{x: 0, y: -210, zoom: lerp(3.0, 3.25, f / 44), rot: 4, f, shake: 1.5}} bg="#0b1220">
+      <Defs />
+      <Layer depth={0.3}>
+        <NightSky x={-1500} y={-1500} w={3000} h={2000} moon={[300, -700]} moonR={60} />
+      </Layer>
+      <Layer>
+        <PoliceCar x={0} y={0} s={1} f={g} />
+      </Layer>
+    </Stage>
+    <PoliceWash g={g} side="left" k={0.8} />
+    <PoliceWash g={g + 24} side="right" k={0.8} />
+  </AbsoluteFill>
+);
+
 /* ================================================================== */
-/* 2 · "The proof is in the snow": glide over the crust               */
+/* "The proof is in the snow": glide over the crust                   */
 /* ================================================================== */
-export const SnowHook: React.FC<ShotP> = ({f, g}) => {
-  const k = easeIO(clamp(f / 115));
+export const SnowGlide: React.FC<ShotP> = ({f, g}) => {
+  const k = easeIO(clamp(f / 95));
   return (
     <AbsoluteFill>
       <Stage cam={{x: lerp(600, 540, k), y: lerp(1500, 700, k), zoom: lerp(1.25, 1.45, k), rot: lerp(8, 0, k), f, shake: 0.5}}>
@@ -102,32 +129,50 @@ export const SnowHook: React.FC<ShotP> = ({f, g}) => {
           <SnowTop f={g} />
         </Layer>
       </Stage>
-      <Grade color="#7f98c0" mode="multiply" op={0.5} />
-      <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 40%, rgba(0,0,0,0) 30%, rgba(0,0,0,0.8) 100%)'}} />
+      <Grade color="#7f98c0" mode="multiply" op={0.45} />
+      <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 40%, rgba(0,0,0,0) 30%, rgba(0,0,0,0.7) 100%)'}} />
     </AbsoluteFill>
   );
 };
 
 /* ================================================================== */
-/* 3 · IF close-up: "Can you catch it?"                               */
+/* "Can you catch it?": IF's magnifying glass sweeps the snow (NEW)   */
 /* ================================================================== */
-export const IFAsk: React.FC<ShotP> = ({f, g}) => {
-  const t = T(g);
-  const k = easeIO(clamp(f / 90));
-  const sf = stepF(f, 3);
+export const Lens: React.FC<ShotP> = ({f, g}) => {
+  const k = easeIO(clamp(f / 52));
+  const lx = lerp(330, 620, k);
+  const ly = lerp(1150, 860, k);
+  const R = 250;
+  // world point under the lens (base cam: x 540,y 700, zoom 1)
+  const wx = 540 + (lx - 540) / 1.0;
+  const wy = 700 + (ly - 960) / 1.0;
   return (
     <AbsoluteFill>
-      <NightBokeh g={g} seed={7} dark={0.45} />
-      <Stage cam={{x: 520, y: 860, zoom: lerp(1.0, 1.1, k), f, shake: 0.8}} bg="transparent">
+      <Stage cam={{x: 540, y: 700, zoom: 1.0, f}}>
         <Defs />
-        <Layer>
-          <g transform="translate(560 1000) scale(1.9)">
-            <IFBust lookX={t < 4.9 ? -0.6 : 0.15} lookY={0.1} brow={clamp((t - 4.85) / 0.4)} blink={blinkAt(sf, 4)} rim="#9fc4ff" rimOp={0.9} cig cigGlow={0.5 + 0.4 * hash(stepF(f, 6))} shade={0.65} />
-          </g>
-          <CigSmoke f={g} x={300} y={1310} scale={0.9} op={0.35} len={380} />
+        <Layer blur={3}>
+          <SnowTop f={g} />
         </Layer>
       </Stage>
-      <Grade color="#7f93b8" mode="multiply" op={0.3} />
+      <Grade color="#7f98c0" mode="multiply" op={0.5} />
+      <AbsoluteFill style={{clipPath: `circle(${R}px at ${lx}px ${ly}px)`}}>
+        <Stage cam={{x: wx + (540 - lx) / 2.3, y: wy + (960 - ly) / 2.3, zoom: 2.3, f}}>
+          <Defs />
+          <Layer>
+            <SnowTop f={g} />
+          </Layer>
+        </Stage>
+        <Grade color="#a9bedc" mode="multiply" op={0.25} />
+      </AbsoluteFill>
+      <svg viewBox="0 0 1080 1920" width={1080} height={1920} style={{position: 'absolute', inset: 0}}>
+        <g transform={`translate(${lx} ${ly})`}>
+          <path d={`M${R * 0.62} ${R * 0.62} L${R * 1.6} ${R * 1.75}`} stroke="#2a1a10" strokeWidth={52} strokeLinecap="round" />
+          <path d={`M${R * 0.62} ${R * 0.62} L${R * 1.6} ${R * 1.75}`} stroke="#5a3a20" strokeWidth={38} strokeLinecap="round" />
+          <circle r={R + 14} fill="none" stroke="#0b0706" strokeWidth={34} />
+          <circle r={R + 14} fill="none" stroke="#b99a5c" strokeWidth={22} />
+          <path d={`M${-R * 0.7} ${-R * 0.45} A${R * 0.85} ${R * 0.85} 0 0 1 ${-R * 0.2} ${-R * 0.8}`} stroke="#fff" strokeWidth={10} fill="none" opacity={0.45} />
+        </g>
+      </svg>
     </AbsoluteFill>
   );
 };
@@ -193,10 +238,9 @@ export const ClockInsert: React.FC<ShotP> = ({f, g}) => {
 /* 6 · The empty safe, IF's flashlight sweeps it                      */
 /* ================================================================== */
 export const SafeShot: React.FC<ShotP> = ({f, g}) => {
-  const t = T(g);
-  const open = lerp(0.75, 1, easeO(inv(8.8, 9.4, t)));
-  const bx = lerp(260, 600, easeIO(inv(8.8, 9.9, t)));
-  const by = lerp(1250, 1080, easeIO(inv(8.8, 9.9, t)));
+  const open = lerp(0.75, 1, easeO(inv(5, 40, f)));
+  const bx = lerp(260, 600, easeIO(inv(5, 70, f)));
+  const by = lerp(1250, 1080, easeIO(inv(5, 70, f)));
   const on = f >= 3;
   return (
     <AbsoluteFill>
@@ -252,12 +296,12 @@ export const OwnerA: React.FC<ShotP> = ({f, g}) => {
   const k = easeIO(clamp(f / 121));
   return (
     <AbsoluteFill>
-      <ShopBokeh g={g} x={500} />
+      <ShopBokeh g={g} x={500} blur={4} dark={0.25} />
       <Stage cam={{x: 560, y: 940, zoom: lerp(1.0, 1.06, k), f, shake: 0.8}} bg="transparent">
         <Defs />
         <Layer>
           <g transform="translate(600 860) scale(1.2)">
-            <Pawnbroker g={g} mouth={talk(g)} look={[-0.7, 0]} sweat={0.3} rim="#ffb45a" rimOp={0.7} />
+            <Pawnbroker g={g} mouth={talk(g)} look={[-0.7, 0]} rim="#ffb45a" rimOp={0.7} />
           </g>
         </Layer>
       </Stage>
@@ -268,15 +312,14 @@ export const OwnerA: React.FC<ShotP> = ({f, g}) => {
 
 export const OwnerB: React.FC<ShotP> = ({f, g}) => {
   const k = easeIO(clamp(f / 113));
-  const dart = Math.floor(stepF(f, 4) / 28) % 3 === 1 ? 0.9 : -0.6;
   return (
     <AbsoluteFill>
-      <ShopBokeh g={g} x={900} dark={0.5} />
+      <ShopBokeh g={g} x={1500} blur={5} dark={0.35} />
       <Stage cam={{x: 520, y: 760, zoom: lerp(1.0, 1.1, k), rot: 2, f, shake: 1}} bg="transparent">
         <Defs />
         <Layer>
           <g transform="translate(500 900) scale(1.8)">
-            <Pawnbroker g={g} mouth={talk(g)} look={[dart, 0.15]} sweat={0.7} fear={0.2} rim="#ffb45a" rimOp={0.8} />
+            <Pawnbroker g={g} mouth={talk(g)} look={[-0.8, 0.05]} smirk={clamp((f - 70) / 12) * 0.8} rim="#ffb45a" rimOp={0.8} />
           </g>
         </Layer>
       </Stage>
@@ -357,9 +400,8 @@ export const AlleyWide: React.FC<ShotP> = ({f, g}) => {
 /* 11 · IF crouches, flashlight on                                    */
 /* ================================================================== */
 export const Crouch: React.FC<ShotP> = ({f, g}) => {
-  const t = T(g);
-  const cr = easeIO(inv(20.78, 21.3, t));
-  const torch = t > 21.25 ? 1 : 0;
+  const cr = easeIO(inv(2, 32, f));
+  const torch = f > 30 ? 1 : 0;
   return (
     <AbsoluteFill>
       <Stage cam={{x: lerp(1120, 1160, f / 80), y: lerp(1260, 1320, f / 80), zoom: 1.3, f, shake: 0.9}}>
@@ -399,10 +441,9 @@ export const Smooth: React.FC<ShotP> = ({f, g}) => {
 /* 13 · Top-down: IF's prints stop; no one else's                     */
 /* ================================================================== */
 export const TopDown: React.FC<ShotP> = ({f, g}) => {
-  const t = T(g);
-  const k = easeIO(clamp(f / 146));
-  const prints = clamp(inv(23.4, 24.3, t) * 7, 0, 7);
-  const bx = lerp(300, 760, easeIO(inv(23.5, 24.6, t)));
+  const k = easeIO(clamp(f / 132));
+  const prints = clamp(inv(0, 54, f) * 7, 0, 7);
+  const bx = lerp(300, 760, easeIO(inv(6, 72, f)));
   return (
     <AbsoluteFill>
       <Stage cam={{x: 540, y: lerp(1150, 980, k), zoom: lerp(0.85, 0.95, k), rot: lerp(-5, -1, k), f, shake: 0.5}}>
@@ -412,53 +453,6 @@ export const TopDown: React.FC<ShotP> = ({f, g}) => {
         </Layer>
       </Stage>
       <Grade color="#7f98c0" mode="multiply" op={0.45} />
-    </AbsoluteFill>
-  );
-};
-
-/* ================================================================== */
-/* 14 · Macro: the glass lies ON TOP of the snow (rack focus)         */
-/* ================================================================== */
-export const GlassMacro: React.FC<ShotP> = ({f, g}) => {
-  const t = T(g);
-  const focus = easeIO(inv(25.9, 26.7, t));
-  const k = easeIO(clamp(f / 203));
-  return (
-    <AbsoluteFill>
-      <Stage cam={{x: lerp(470, 600, k), y: lerp(560, 470, k), zoom: lerp(2.3, 2.75, k), rot: lerp(-8, 4, k), f, shake: 0.5}}>
-        <Defs />
-        <Layer blur={lerp(12, 0, focus)}>
-          <SnowTop f={g} beam={[lerp(380, 640, k), 480, 220]} />
-        </Layer>
-      </Stage>
-      <Grade color="#86a0c8" mode="multiply" op={0.35} />
-      <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 42%, rgba(0,0,0,0) 35%, rgba(0,0,0,0.75) 100%)'}} />
-    </AbsoluteFill>
-  );
-};
-
-/* ================================================================== */
-/* 15 · IF's eyes: "The window was smashed…" (punch-in)               */
-/* ================================================================== */
-export const IFEyes: React.FC<ShotP> = ({f, g}) => {
-  const t = T(g);
-  const punch = t >= 30.1 ? 1 : 0;
-  const zoom = lerp(1.0, 1.06, clamp(f / 50)) + punch * 0.22;
-  const shake = t >= 30.1 && t < 30.4 ? 8 : 0.6;
-  return (
-    <AbsoluteFill>
-      <AbsoluteFill style={{background: '#06080c'}} />
-      <Stage cam={{x: 455, y: 700, zoom, f, shake}} bg="transparent">
-        <Defs />
-        <Layer>
-          <g transform="translate(560 900) scale(3.4)">
-            <IFBust lookX={t < 29.7 ? 0 : -1} lookY={0.2} brow={clamp((t - 29.5) / 0.4)} rim={punch ? '#ff4a3a' : '#9fc4ff'} rimOp={0.95} shade={0.7} />
-          </g>
-        </Layer>
-      </Stage>
-      <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 28%, rgba(0,0,0,0) 48%, rgba(0,0,0,0.9) 75%)'}} />
-      <Grade color={punch ? '#c07060' : '#7f93b8'} mode="multiply" op={0.35} />
-      <Flash f={f} at={sec(30.1) - sec(29.22)} color="#ff3a2a" dur={14} peak={0.45} />
     </AbsoluteFill>
   );
 };
@@ -480,16 +474,14 @@ const OwnerSilhouette: React.FC<{swing: number}> = ({swing}) => (
 );
 
 export const Burst: React.FC<ShotP> = ({f, g}) => {
-  const t = T(g);
-  const hitT = 31.02;
-  const hit = sec(hitT) - sec(30.6);
-  const swing = easeI(inv(30.62, hitT, t));
+  const hit = sec(HIT_S) - sec(SHOTS.burst[0]);
+  const swing = easeI(inv(0, hit, f));
   const after = Math.max(0, f - hit);
   const shake = after > 0 && after < 26 ? 14 * (1 - after / 26) : 0.8;
   const land = clamp((after - 26) / 20);
   return (
     <AbsoluteFill>
-      <Stage cam={{x: 1300, y: lerp(1060, 1120, clamp(f / 87)), zoom: after > 0 ? 1.9 : 1.75, f, shake}}>
+      <Stage cam={{x: 1300, y: lerp(1060, 1120, clamp(f / 60)), zoom: after > 0 ? 1.9 : 1.75, f, shake}}>
         <Defs />
         <Layer>
           <AlleyBack f={g} glass={land} door={0} />
@@ -530,9 +522,9 @@ export const Burst: React.FC<ShotP> = ({f, g}) => {
           {after > 0 && <GlassShards cx={1300} cy={1430} spread={300} depth={190} n={46} f={g} op={land} seed={4} />}
         </Layer>
       </Stage>
-      <Grade color="#e0402e" mode="multiply" op={0.55} />
+      <Grade color="#e8963a" mode="multiply" op={0.5} />
       <Flash f={f} at={hit} color="#ffffff" dur={10} peak={0.6} />
-      <Flash f={f} at={hit + 4} color="#ff2a1a" dur={22} peak={0.5} />
+      <Flash f={f} at={hit + 4} color="#ffb050" dur={22} peak={0.4} />
       <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 35%, rgba(0,0,0,0.8) 100%)'}} />
     </AbsoluteFill>
   );
@@ -545,120 +537,323 @@ const Ink2: React.FC = () => (
   </g>
 );
 
-/* ================================================================== */
-/* 17 · "There was no thief." the pawnbroker freezes                  */
-/* ================================================================== */
-export const NoThief: React.FC<ShotP> = ({f, g}) => {
-  const t = T(g);
-  const frozen = t >= 32.4;
-  return (
-    <AbsoluteFill>
-      <NightBokeh g={frozen ? sec(32.4) : g} seed={11} dark={0.55} />
-      <Stage cam={{x: 540, y: 860, zoom: frozen ? lerp(1.12, 1.18, clamp((f - 20) / 76)) : 1.0, f, shake: frozen ? 0 : 1.2}} bg="transparent">
-        <Defs />
-        <Layer>
-          <g transform="translate(540 900) scale(1.75)">
-            <Pawnbroker g={frozen ? sec(32.4) : g} look={frozen ? [0, 0] : [noise1(stepF(g, 8) * 0.1), 0]} fear={frozen ? 1 : 0.4} sweat={1} rim="#ff4a3a" rimOp={0.85} />
-          </g>
-        </Layer>
-      </Stage>
-      <Grade color={frozen ? '#a46a64' : '#8a7a90'} mode="multiply" op={0.45} />
-      <PoliceWash g={g} side="right" k={0.5} />
-      {frozen && <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 35%, rgba(0,0,0,0.85) 90%)'}} />}
-    </AbsoluteFill>
-  );
-};
 
 /* ================================================================== */
-/* 18 · Flashback (red): his shadow empties his own safe              */
+/* Props: IF's gloved hand, the hero shard, evidence bag with shard   */
 /* ================================================================== */
-const StuffShadow: React.FC<{k: number}> = ({k}) => (
-  <g fill="#050101">
-    <ellipse cx={0} cy={-300} rx={110} ry={125} />
-    <path d="M-290 900 C-300 200 -270 -60 -130 -150 L130 -150 C270 -60 300 200 290 900 Z" />
-    {/* arm reaching to the safe then to the bag */}
-    <g transform={`rotate(${lerp(-60, 10, k)} -150 -80)`}>
-      <path d="M-170 -110 L-120 -60 L-460 120 L-490 70 Z" />
-      <rect x={-560} y={40} width={90} height={60} rx={10} transform="rotate(-20 -520 70)" />
-    </g>
-    {/* bag */}
-    <path d="M200 520 C180 360 240 300 330 300 C420 300 480 360 460 520 C470 640 420 700 330 700 C240 700 190 640 200 520 Z" />
+/** IF's gloved hand pinching at (0,0); the coat sleeve runs off toward +x/+y (rotate the group to aim it). */
+const GloveHand: React.FC<{open?: number}> = ({open = 0}) => (
+  <g>
+    <Ink d="M60 40 L900 520 L900 900 L-20 260 Z" fill="#2b2d33" w={4} heavy={4} hatch="hatch" hatchOp={0.15} />
+    <rect x={10} y={60} width={110} height={40} fill="#e4dccd" stroke="#0b0706" strokeWidth={3} transform="rotate(30 60 80)" />
+    <Ink d="M-10 10 C-40 30 -40 90 0 130 C40 170 120 170 150 120 C170 80 150 40 110 20 C80 0 30 -10 -10 10 Z" fill="#3A251D" w={3.4} heavy={3} />
+    {/* index finger + thumb meeting at the pinch point */}
+    <Ink d={`M10 40 C-10 ${20 - open * 20} -24 ${0 - open * 30} -8 ${-12 - open * 30} C6 ${-20 - open * 30} 24 ${0 - open * 10} 40 30 Z`} fill="#3A251D" w={3} heavy={2} />
+    <Ink d={`M30 80 C0 ${70 + open * 10} -16 ${40 + open * 20} -4 ${14 + open * 20} C10 0 30 30 56 60 Z`} fill="#22140F" w={3} heavy={2} />
+    <path d="M40 60 C70 70 100 90 120 120" stroke="#0b0706" strokeWidth={2} fill="none" opacity={0.6} />
   </g>
 );
 
-export const Robbed: React.FC<ShotP> = ({f, g}) => {
-  const cyc = (stepF(f, 4) % 56) / 56;
-  const k = cyc < 0.5 ? easeIO(cyc * 2) : easeIO(2 - cyc * 2);
-  const pull = easeIO(clamp(f / 115));
-  const flick = 0.85 + 0.15 * hash(stepF(f, 4));
+const HeroShard: React.FC<{s?: number; glint?: number}> = ({s = 1, glint = 0}) => (
+  <g transform={`scale(${s})`}>
+    <path d="M-46 -6 L-10 -40 L50 -14 L18 34 L-30 22 Z" fill="#cfe6ff" opacity={0.75} stroke="#0b0706" strokeWidth={2.4} />
+    <path d="M-34 -2 L40 -12" stroke="#fff" strokeWidth={3} opacity={0.8} />
+    <path d="M-10 -40 L18 34" stroke="#9fc4ff" strokeWidth={2} opacity={0.6} />
+    {glint > 0 && <Glint x={30} y={-14} r={46} k={glint} />}
+  </g>
+);
+
+const ShardBag: React.FC = () => (
+  <g>
+    <rect x={-150} y={-190} width={300} height={380} rx={10} fill="#000" opacity={0.35} transform="translate(10 14)" />
+    <rect x={-150} y={-190} width={300} height={380} rx={10} fill="#d4dde2" opacity={0.32} stroke="#eef4f6" strokeWidth={4} />
+    <rect x={-150} y={-190} width={300} height={54} fill="#c8231b" opacity={0.92} />
+    <text x={0} y={-152} fontFamily="IFStamp" fontSize={32} fill="#fff" textAnchor="middle" letterSpacing={5}>
+      EVIDENCE
+    </text>
+    <g transform="translate(0 40) rotate(-14)">
+      <HeroShard s={1.9} />
+    </g>
+    <path d="M-130 -110 L-96 170" stroke="#fff" strokeWidth={8} opacity={0.3} />
+  </g>
+);
+
+/* ================================================================== */
+/* "…lay on top of the snow": IF lifts one shard, clean crust beneath */
+/* ================================================================== */
+export const ShardLift: React.FC<ShotP> = ({f, g}) => {
+  const focus = easeIO(inv(0, 40, f));
+  const reach = easeO(inv(56, 92, f));
+  const lift = easeIO(inv(98, 130, f));
+  const k = easeIO(clamp(f / 182));
+  const SX = 560;
+  const SY = 520;
   return (
     <AbsoluteFill>
-      <Stage cam={{x: lerp(620, 560, pull), y: lerp(1000, 1060, pull), zoom: lerp(1.3, 1.0, pull), f, shake: 0.8}}>
+      <Stage cam={{x: lerp(520, 570, k), y: lerp(560, 600, k), zoom: lerp(2.4, 2.7, k), rot: -4, f, shake: 0.5}}>
         <Defs />
-        <Layer depth={0.9}>
-          <rect x={-800} y={-400} width={2700} height={2800} fill="#5a3a2e" />
-          <rect x={-800} y={-400} width={2700} height={2800} fill="url(#wallpaper)" />
-          <rect x={-800} y={1480} width={2700} height={900} fill="#2a1a12" />
-          <circle cx={300} cy={1100} r={1200} fill="url(#redGlow)" opacity={0.6 * flick} />
-          <g transform="translate(720 760) scale(1.2)" opacity={0.92}>
-            <StuffShadow k={k} />
+        <Layer blur={lerp(10, 0, focus)}>
+          <SnowTop f={g} beam={[600, 520, 240]} />
+          {/* the spot under the hero shard: clean, unbroken crust */}
+          <ellipse cx={SX} cy={SY} rx={60} ry={42} fill="#c4d2e0" />
+          <ellipse cx={SX + 10} cy={SY + 6} rx={58} ry={14} fill="#5f7186" opacity={0.3 * (1 - lift)} />
+          <g transform={`translate(${SX + lift * 60} ${SY - lift * 120})`}>
+            <ellipse cx={lift * 30} cy={lift * 130} rx={46} ry={18} fill="#5f7186" opacity={0.25 * (1 - lift * 0.6)} />
+            <HeroShard s={1 + lift * 0.35} glint={lift > 0.6 ? 0.9 : 0} />
+          </g>
+          {reach > 0 && (
+            <g transform={`translate(${SX + 20 + (1 - reach) * 420 + lift * 60} ${SY + 10 + (1 - reach) * 380 - lift * 120}) rotate(-8) scale(0.55)`}>
+              <GloveHand open={1 - reach} />
+            </g>
+          )}
+        </Layer>
+      </Stage>
+      <Grade color="#86a0c8" mode="multiply" op={0.3} />
+      <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 42%, rgba(0,0,0,0) 38%, rgba(0,0,0,0.7) 100%)'}} />
+    </AbsoluteFill>
+  );
+};
+
+/* ================================================================== */
+/* "The window was smashed": low angle, shard held up to the window  */
+/* ================================================================== */
+export const LookUp: React.FC<ShotP> = ({f, g}) => {
+  const k = easeIO(clamp(f / 97));
+  const raise = easeO(clamp(f / 40));
+  return (
+    <AbsoluteFill>
+      <Stage cam={{x: 1300, y: lerp(1000, 940, k), zoom: lerp(1.45, 1.7, k), rot: -7, f, shake: 0.7}}>
+        <Defs />
+        <Layer>
+          <AlleyBack f={g} />
+          <rect x={-1200} y={1180} width={5200} height={400} fill="url(#fadeDown)" opacity={0.0} />
+        </Layer>
+      </Stage>
+      <svg viewBox="0 0 1080 1920" width={1080} height={1920} style={{position: 'absolute', inset: 0}}>
+        <Defs />
+        <g transform={`translate(${300} ${lerp(1750, 1380, raise)}) rotate(-30) scale(1.4)`}>
+          <GloveHand />
+          <g transform="translate(-6 -30)">
+            <HeroShard s={1.9} glint={0.8 + 0.2 * hash(stepF(f, 6))} />
+          </g>
+        </g>
+      </svg>
+      <Grade color="#7f98c4" mode="multiply" op={0.35} />
+      <AbsoluteFill style={{background: 'linear-gradient(0deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 40%)'}} />
+    </AbsoluteFill>
+  );
+};
+
+/* ================================================================== */
+/* "There was no thief.": the imagined burglar dissolves (NEW)        */
+/* ================================================================== */
+const GhostThief: React.FC<{k: number; f: number}> = ({k, f}) => {
+  const body = 'M-40 -330 C-70 -330 -80 -290 -70 -260 L-120 -240 C-170 -200 -190 -120 -180 -40 L-200 120 L-150 130 L-120 -10 L-110 140 L-150 380 L-90 390 L-40 160 L10 390 L70 380 L30 140 L40 -20 L100 40 L140 0 L60 -140 C50 -200 30 -240 0 -260 C20 -290 10 -330 -40 -330 Z';
+  return (
+    <g>
+      <g opacity={(1 - k) * 0.85}>
+        <path d={body} fill="#cfe6ff" opacity={0.18} />
+        <path d={body} fill="none" stroke="#e6f2ff" strokeWidth={4} strokeDasharray="14 12" />
+        {/* cap + sack */}
+        <path d="M-90 -320 C-80 -370 20 -370 30 -320 Z" fill="none" stroke="#e6f2ff" strokeWidth={4} strokeDasharray="10 10" />
+        <circle cx={120} cy={-60} r={70} fill="none" stroke="#e6f2ff" strokeWidth={4} strokeDasharray="12 10" />
+      </g>
+      {/* disintegrates into drifting snow */}
+      {k > 0 &&
+        Array.from({length: 70}).map((_, i) => {
+          const x0 = (hash(i * 1.9) - 0.5) * 360;
+          const y0 = (hash(i * 2.7) - 0.5) * 760;
+          const dx = 60 + hash(i * 4.1) * 260;
+          const dy = -40 - hash(i * 3.3) * 220;
+          return <circle key={i} cx={x0 + dx * k + noise1(i + stepF(f, 4) * 0.05) * 10} cy={y0 + dy * k} r={3 + hash(i) * 5} fill="#eef6ff" opacity={(1 - k) * 0.9} />;
+        })}
+    </g>
+  );
+};
+
+export const Ghost: React.FC<ShotP> = ({f, g}) => {
+  const k = easeIO(inv(22, 70, f));
+  return (
+    <AbsoluteFill>
+      <Stage cam={{x: 1300, y: lerp(1120, 1080, f / 82), zoom: 1.25, f, shake: 0.5}}>
+        <Defs />
+        <Layer>
+          <AlleyBack f={g} />
+          {/* the footprints a thief would have left: shown, then gone */}
+          <g opacity={(1 - k) * 0.8}>
+            <Prints from={[1700, 1700]} to={[1340, 1440]} n={6} upto={6} s={0.9} color="#e6f2ff" />
+          </g>
+          <g transform="translate(1290 1060) scale(0.62)">
+            <GhostThief k={k} f={g} />
           </g>
         </Layer>
-        <Layer>
-          <Safe x={250} y={1720} s={0.8} open={1} />
-          {/* bundles of notes leaving the safe */}
-          {k < 0.5 && <rect x={260 + k * 300} y={1300 - k * 200} width={90} height={50} fill="#c8b070" stroke="#0b0706" strokeWidth={2} transform={`rotate(-15 300 1300)`} />}
-        </Layer>
       </Stage>
-      <Grade color="#e0402e" mode="multiply" op={0.55} />
-      <AbsoluteFill style={{background: 'radial-gradient(ellipse at 40% 50%, rgba(0,0,0,0) 35%, rgba(0,0,0,0.8) 100%)'}} />
+      <Grade color="#7f98c4" mode="multiply" op={0.35} />
     </AbsoluteFill>
   );
 };
 
 /* ================================================================== */
-/* 19 · Insert: the insurance claim, amount circled                   */
+/* "He robbed his own shop,": 2 AM, his hands hide the cash (NEW)     */
 /* ================================================================== */
-export const Claim: React.FC<ShotP> = ({f, g}) => {
-  const t = T(g);
-  const k = easeIO(clamp(f / 90));
+const KnitHands: React.FC = () => (
+  <g>
+    <Ink d="M-30 -40 L420 -560 L560 -440 L110 60 Z" fill="#5b4a2c" w={3.4} heavy={3} hatch="hatchV" hatchOp={0.25} />
+    <rect x={-50} y={-70} width={120} height={50} fill="#3a2f1b" stroke="#0b0706" strokeWidth={3} transform="rotate(-48 10 -45)" />
+    <Ink d="M-70 -30 C-100 0 -96 60 -50 80 C0 100 60 80 70 30 C76 -10 40 -40 0 -46 Z" fill="#C8917A" w={3} heavy={2} />
+    <path d="M-60 40 C-30 50 0 50 30 40" stroke="#0b0706" strokeWidth={2} fill="none" opacity={0.6} />
+  </g>
+);
+
+export const Stash: React.FC<ShotP> = ({f, g}) => {
+  const cyc = (stepF(f, 3) % 54) / 54;
+  const k = cyc < 0.55 ? easeIO(cyc / 0.55) : 1;
+  const hx = lerp(380, 770, k);
+  const hy = lerp(1120, 1330, k) - Math.sin(k * Math.PI) * 140;
+  const piled = Math.min(4, Math.floor(stepF(f, 3) / 54) + 1);
+  const flick = 0.88 + 0.12 * hash(stepF(f, 5));
+  const z = lerp(1.15, 1.25, f / 109);
   return (
     <AbsoluteFill>
-      <Stage cam={{x: lerp(560, 480, k), y: lerp(840, 900, k), zoom: lerp(1.25, 1.45, k), f, shake: 0.7}}>
+      <Stage cam={{x: 600, y: 1080, zoom: z, f, shake: 0.9}} bg="#120c08">
         <Defs />
+        <Layer depth={0.9}>
+          <rect x={-600} y={-400} width={2400} height={1820} fill="#3a2c1e" />
+          <rect x={-600} y={-400} width={2400} height={1820} fill="url(#wallpaper)" />
+          <WallClock x={880} y={560} r={120} h={2} m={0} f={g} />
+          <circle cx={500} cy={500} r={900} fill="url(#warmGlow)" opacity={0.45 * flick} />
+        </Layer>
         <Layer>
-          <ClaimForm circle={easeO(inv(35.95, 36.6, t))} />
-          <circle cx={300} cy={600} r={900} fill="url(#warmGlow)" opacity={0.25} />
+          <rect x={-600} y={1400} width={2400} height={900} fill="#2a1a10" />
+          <rect x={-600} y={1400} width={2400} height={900} fill="url(#parquet)" />
+          <Safe x={330} y={1420} s={0.7} open={1} />
+          {/* lifted floorboard + hiding hole */}
+          <rect x={660} y={1400} width={260} height={70} fill="#050302" stroke="#0b0706" strokeWidth={3} />
+          {Array.from({length: piled}).map((_, i) => (
+            <rect key={i} x={680 + (i % 2) * 110} y={1440 - Math.floor(i / 2) * 22} width={96} height={24} fill="#c8b070" stroke="#0b0706" strokeWidth={2} />
+          ))}
+          <g transform="translate(925 1400) rotate(-28)">
+            <rect x={0} y={-16} width={200} height={32} fill="#4a3020" stroke="#0b0706" strokeWidth={3} />
+          </g>
+          {/* the bundle in transit */}
+          {k < 1 && <rect x={hx - 50} y={hy - 14} width={100} height={30} fill="#c8b070" stroke="#0b0706" strokeWidth={2.5} transform={`rotate(${lerp(-10, 12, k)} ${hx} ${hy})`} />}
+          <g transform={`translate(${hx + 30} ${hy - 6}) scale(0.8)`}>
+            <KnitHands />
+          </g>
         </Layer>
       </Stage>
-      <Grade color="#a88a62" mode="multiply" op={0.3} />
+      <Grade color="#d8a060" mode="multiply" op={0.45} />
+      <AbsoluteFill style={{background: '#000', opacity: 0.12, mixBlendMode: 'saturation'}} />
+      <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 38%, rgba(0,0,0,0.85) 100%)'}} />
     </AbsoluteFill>
   );
 };
 
 /* ================================================================== */
-/* 20 · OUTRO: IF walks off past the window, leaving the only prints  */
+/* "for the insurance.": the claim typed out, letter by letter (NEW)  */
 /* ================================================================== */
-export const Outro: React.FC<ShotP> = ({f, g}) => {
-  const sf = stepF(f, 4);
-  const walkF = Math.min(sf, 200);
-  const stop = clamp((f - 190) / 24);
-  const px = 1080 + walkF * 2.6;
-  const zoom = lerp(1.0, 0.78, easeIO(clamp(f / 240)));
-  const camX = lerp(1200, 1500, easeIO(clamp(f / 260)));
+export const TYPED_LINE = 'STOLEN: 48 000 ROUBLES';
+export const TYPE_F0 = 4;
+export const TYPE_STEP = 2.5;
+export const Typed: React.FC<ShotP> = ({f}) => {
+  const n = clamp(Math.floor((f - TYPE_F0) / TYPE_STEP) + 1, 0, TYPED_LINE.length);
+  const CW = 27;
+  const shift = 0;
+  const tx = 300 + n * CW;
+  const strike = (f - TYPE_F0) % TYPE_STEP < 1.2 && n < TYPED_LINE.length;
+  const k = easeIO(clamp(f / 74));
   return (
     <AbsoluteFill>
-      <Stage cam={{x: camX, y: lerp(1200, 1080, easeIO(clamp(f / 260))), zoom, f, shake: 0.8}}>
+      <Stage cam={{x: lerp(520, 600, k), y: lerp(760, 720, k), zoom: lerp(1.15, 1.3, k), rot: -3, f, shake: 0.6}} bg="#1a120c">
         <Defs />
         <Layer>
-          <AlleyBack f={g} door={0.6} />
-          <Prints from={[560, IF_Y - 6]} to={[1060, IF_Y + 4]} n={9} upto={9} s={0.9} />
-          <Prints from={[1080, IF_Y + 10]} to={[1600, IF_Y + 20]} n={9} upto={clamp((px - 1080) / 62, 0, 9)} s={0.9} />
-          <IFAt x={px} sf={walkF} walk={1 - stop} g={g} />
+          <rect x={-600} y={-400} width={2400} height={2800} fill="#24180e" />
+          <g transform={`translate(${shift} 0)`}>
+            <Ink d="M160 200 H1100 V1120 H160 Z" fill="#e4dcc4" heavy={0} w={3} />
+            <rect x={160} y={200} width={940} height={920} fill="url(#concrete)" opacity={0.3} />
+            {[
+              ['ГОССТРАХ · CLAIM FOR LOSS', 380],
+              ['INCIDENT: BURGLARY, 02:00', 520],
+              ['ENTRY:    BACK WINDOW', 620],
+            ].map(([txt, y]) => (
+              <text key={txt as string} x={300} y={y as number} fontFamily="IFType" fontSize={44} fill="#1a120c">
+                {txt}
+              </text>
+            ))}
+            <text x={300} y={720} fontFamily="IFType" fontSize={44} fill="#1a120c" letterSpacing={0}>
+              {TYPED_LINE.slice(0, n)}
+            </text>
+          </g>
+          {/* platen + carriage, typebar guide at the type point */}
+          <rect x={60} y={760} width={1000} height={130} rx={60} fill="#151515" stroke="#0b0706" strokeWidth={4} />
+          <rect x={60} y={770} width={1000} height={24} fill="#3a3a3a" opacity={0.6} />
+          <path d={`M${tx - 10} 740 L${tx + 4} 770 L${tx + 18} 740`} fill="#9a9a9a" stroke="#0b0706" strokeWidth={2} />
+          {strike && <rect x={tx - 4} y={686} width={22} height={40} fill="#2a2a2a" />}
+          {/* key rows */}
+          {Array.from({length: 3}).map((_, r) =>
+            Array.from({length: 9}).map((_, c) => {
+              const down = strike && hash(n * 3.1) * 27 > r * 9 + c - 0.5 && hash(n * 3.1) * 27 < r * 9 + c + 0.5;
+              return <circle key={`${r}${c}`} cx={150 + c * 100 + r * 30} cy={1050 + r * 110 + (down ? 8 : 0)} r={38} fill="#1e1e1e" stroke="#c9c2b0" strokeWidth={4} />;
+            }),
+          )}
         </Layer>
       </Stage>
-      <Grade color="#7f98c4" mode="multiply" op={0.3} />
-      <PoliceWash g={g} side="left" k={0.6} />
+      <Grade color="#b08a5a" mode="multiply" op={0.3} />
+      <AbsoluteFill style={{background: 'radial-gradient(ellipse at 55% 40%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.75) 100%)'}} />
+    </AbsoluteFill>
+  );
+};
+
+/* ================================================================== */
+/* ENDING: the pawnbroker behind the militia car window, IF holds the */
+/* evidence (the shard) — framed like frame 1, so the loop is seamless */
+/* ================================================================== */
+export const CarEnd: React.FC<ShotP> = ({f, g}) => {
+  const rack = easeIO(inv(40, 80, f));
+  const push = easeIO(clamp(f / 150));
+  const lookUp = f > 170 ? 1 : 0;
+  const {red, blue} = policePhase(g);
+  return (
+    <AbsoluteFill>
+      <Stage cam={{x: 540, y: lerp(880, 790, push), zoom: lerp(1.0, 1.25, push), f, shake: 0.7}} bg="#0b1220">
+        <Defs />
+        <Layer depth={0.9} blur={lerp(0, 2, 1 - rack) + 4 * (1 - rack)}>
+          {/* car door + rear side window */}
+          <rect x={-600} y={-400} width={2400} height={2800} fill="#1b1a1c" />
+          <rect x={-600} y={-400} width={2400} height={2800} fill="url(#hatch)" opacity={0.12} />
+          <rect x={150} y={330} width={790} height={980} rx={60} fill="#0e1418" stroke="#9a9a96" strokeWidth={14} />
+          <g style={{filter: `blur(${(1 - rack) * 4}px)`}}>
+            <svg x={150} y={330} width={790} height={980} viewBox="150 330 790 980" overflow="hidden">
+              <rect x={150} y={330} width={790} height={980} fill="#162030" />
+              <g transform="translate(560 860) scale(1.3)">
+                <Pawnbroker g={g} look={lookUp ? [0, 0] : [0.2, 0.7]} fear={0.15} rim="#ff4a3a" rimOp={0.9} />
+              </g>
+              <rect x={150} y={330} width={790} height={980} fill="#ff2a1a" opacity={0.28 * red} style={{mixBlendMode: 'screen'}} />
+              <rect x={150} y={330} width={790} height={980} fill="#3a6aff" opacity={0.3 * blue} style={{mixBlendMode: 'screen'}} />
+            </svg>
+          </g>
+          {/* glass reflections */}
+          <path d="M200 380 L420 380 L200 700 Z" fill="#cfe6ff" opacity={0.12} />
+          <path d="M700 1250 L900 900 L900 1250 Z" fill="#cfe6ff" opacity={0.08} />
+          <rect x={-600} y={1330} width={2400} height={14} fill="#9a9a96" />
+          <text x={540} y={1460} textAnchor="middle" fontFamily="IFStamp" fontSize={70} letterSpacing={10} fill="#c8c2bb" opacity={0.85}>
+            МИЛИЦИЯ
+          </text>
+        </Layer>
+      </Stage>
+      {/* foreground: IF's gloved hand holds up the bagged shard (sharp first, then out of focus as focus racks to his face) */}
+      <svg viewBox="0 0 1080 1920" width={1080} height={1920} style={{position: 'absolute', inset: 0, filter: `blur(${rack * 9}px)`}}>
+        <Defs />
+        <g transform={`translate(${lerp(300, 220, push)} ${lerp(1180, 1300, push)}) rotate(-8) scale(1.1)`}>
+          <ShardBag />
+          <g transform="translate(30 190) rotate(95) scale(0.7)">
+            <GloveHand />
+          </g>
+        </g>
+      </svg>
+      <PoliceWash g={g} side="left" k={0.9} />
+      <PoliceWash g={g + 24} side="right" k={0.5} />
+      <AbsoluteFill style={{background: '#fff', opacity: 0.05, mixBlendMode: 'screen'}} />
     </AbsoluteFill>
   );
 };
